@@ -55,7 +55,7 @@
               :key="index"
               class="ghost-icon"
               :style="{ color: isInvincible ? 'blue' : ghost.color }"
-            ><img class="ghost-img"  src="@/assets/images/pacmen/m1.svg" alt="">
+            ><img class="ghost-img"  :src="ghost.monster" alt="">
           </span>
 
           </div>
@@ -69,7 +69,10 @@
   <script setup lang="ts">
       //@ts-nocheck
   import { ref, reactive, onMounted, onBeforeUnmount, computed } from 'vue';
-  
+ import monster1 from '@/assets/images/pacmen/m1.svg'
+  import monster2 from '@/assets/images/pacmen/m2.svg'
+   import monster3 from '@/assets/images/pacmen/m3.svg'
+
   function getRandomNumber() {
   return `bonus-${Math.floor(Math.random() * 3) + 1}`
 }
@@ -114,10 +117,10 @@ const BOARD_HEIGHT = 15;
   
   // Привидения
   const ghosts = ref([
-    { position: { x: 13, y: 13 }, direction: { x: -1, y: 0 }, color: 'red', speed: 200 },
-    { position: { x: 3, y: 13 }, direction: { x: 1, y: 0 }, color: 'pink', speed: 200 },
-    { position: { x: 7, y: 8 }, direction: { x: 0, y: 1 }, color: 'cyan', speed: 200 },
-    { position: { x: 9, y: 6 }, direction: { x: 0, y: 1 }, color: 'green', speed: 200 },
+    { position: { x: 13, y: 13 }, direction: { x: -1, y: 0 }, color: 'red', speed: 200, monster: monster1 },
+    { position: { x: 3, y: 13 }, direction: { x: 1, y: 0 }, color: 'pink', speed: 200, monster: monster2 },
+    { position: { x: 7, y: 8 }, direction: { x: 0, y: 1 }, color: 'cyan', speed: 200, monster: monster3 },
+    { position: { x: 9, y: 6 }, direction: { x: 0, y: 1 }, color: 'green', speed: 200, monster: monster1 },
   ]);
 
   const isOuterWall = (x, y) => {
@@ -270,10 +273,10 @@ const clearPosition = (x, y) => {
     pacman.nextDirection = { x: 0, y: 0 };
     
     ghosts.value = [
-    { position: { x: 13, y: 13 }, direction: { x: -1, y: 0 }, color: 'red', speed: 200 },
-    { position: { x: 3, y: 13 }, direction: { x: 1, y: 0 }, color: 'pink', speed: 200 },
-    { position: { x: 7, y: 8 }, direction: { x: 0, y: 1 }, color: 'cyan', speed: 200 },
-    { position: { x: 9, y: 6 }, direction: { x: 0, y: 1 }, color: 'green', speed: 200 },
+    { position: { x: 13, y: 13 }, direction: { x: -1, y: 0 }, color: 'red', speed: 200, monster: monster1 },
+    { position: { x: 3, y: 13 }, direction: { x: 1, y: 0 }, color: 'pink', speed: 200, monster: monster2 },
+    { position: { x: 7, y: 8 }, direction: { x: 0, y: 1 }, color: 'cyan', speed: 200, monster: monster3 },
+    { position: { x: 9, y: 6 }, direction: { x: 0, y: 1 }, color: 'green', speed: 200, monster: monster1 },
 ];
     
     initBoard();
@@ -341,10 +344,10 @@ const handlePacmanDeath = () => {
     pacman.direction = { x: 0, y: 0 };
     
     ghosts.value = [
-      { position: { x: 13, y: 13 }, direction: { x: -1, y: 0 }, color: 'red', speed: 200 },
-      { position: { x: 3, y: 13 }, direction: { x: 1, y: 0 }, color: 'pink', speed: 200 },
-      { position: { x: 7, y: 8 }, direction: { x: 0, y: 1 }, color: 'cyan', speed: 200 },
-      { position: { x: 9, y: 6 }, direction: { x: 0, y: 1 }, color: 'green', speed: 200 }
+    { position: { x: 13, y: 13 }, direction: { x: -1, y: 0 }, color: 'red', speed: 200, monster: monster1 },
+    { position: { x: 3, y: 13 }, direction: { x: 1, y: 0 }, color: 'pink', speed: 200, monster: monster2 },
+    { position: { x: 7, y: 8 }, direction: { x: 0, y: 1 }, color: 'cyan', speed: 200, monster: monster3 },
+    { position: { x: 9, y: 6 }, direction: { x: 0, y: 1 }, color: 'green', speed: 200, monster: monster1 },
     ];
   }
 };
