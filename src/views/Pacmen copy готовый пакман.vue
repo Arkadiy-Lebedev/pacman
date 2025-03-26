@@ -25,31 +25,18 @@
               'wall': cell === WALL,
               'outer-wall': isOuterWall(x, y),
               'dot': cell === DOT,
-              'bonus1': cell === BONUS,  
-                'bonus2': cell === BONUS2,   
-                'bonus3': cell === BONUS3,          
+              'bonus': cell === BONUS,             
               'power-pellet': cell === POWER_PELLET,
               // 'pacman': pacman.position.x === x && pacman.position.y === y,
               'ghost': ghosts.some(g => g.position.x === x && g.position.y === y),
               'invincible': isInvincible && pacman.position.x === x && pacman.position.y === y
-            }, cell === BONUS ? getRandomNumber() : '' ]"
+            }, cell === BONUS ? getRandomNumber() : 'qwrrrr' ]"
             @click="handleCellClick(x, y)"
           >
           <!-- power-pellet -->
             <span v-if="pacman.position.x === x && pacman.position.y === y" class="pacman-icon">
             <img class="pacmen" src="@/assets/images/pacmen/1.png" alt="">
             </span>
-
-              <span v-if="cell === BONUS" class="bonus1-box">
-            <img class="bonus-img" src="@/assets/images/pacmen/level1/bonus1.png" alt="">
-            </span>
-                 <span v-if="cell === BONUS2" class="bonus1-box">
-            <img class="bonus-img" src="@/assets/images/pacmen/level1/bonus2.png" alt="">
-            </span>
-           <span v-if="cell === BONUS3" class="bonus1-box">
-            <img class="bonus-img" src="@/assets/images/pacmen/level1/bonus3.png" alt="">
-            </span>
-
             <span 
               v-for="(ghost, index) in ghosts.filter(g => g.position.x === x && g.position.y === y)" 
               :key="index"
@@ -73,9 +60,7 @@
   function getRandomNumber() {
   return `bonus-${Math.floor(Math.random() * 3) + 1}`
 }
-const TOTAL_BONUSES = 2;
-const TOTAL_BONUSES2 = 2;
-const TOTAL_BONUSES3 = 2;
+const TOTAL_BONUSES = 6;
   // Конфигурация игры
   const BOARD_WIDTH = 17;
 const BOARD_HEIGHT = 15;
@@ -84,8 +69,6 @@ const BOARD_HEIGHT = 15;
   const DOT = 2;
   const POWER_PELLET = 3;
   const BONUS = 4; // Красные бонусные точки
-    const BONUS2 = 5;
-      const BONUS3 = 6;
   const EMPTY = 0;
   
   // Игровое поле
@@ -190,19 +173,6 @@ const BOARD_HEIGHT = 15;
     board.value[y][x] = BONUS;
   }
 
-  for (let i = 0; i < TOTAL_BONUSES2 && availablePositions.length > 0; i++) {
-    const randomIndex = Math.floor(Math.random() * availablePositions.length);
-    const {x, y} = availablePositions.splice(randomIndex, 1)[0];
-    board.value[y][x] = BONUS2;
-  }
-
-  for (let i = 0; i < TOTAL_BONUSES3 && availablePositions.length > 0; i++) {
-    const randomIndex = Math.floor(Math.random() * availablePositions.length);
-    const {x, y} = availablePositions.splice(randomIndex, 1)[0];
-    board.value[y][x] = BONUS3;
-  }
-
-
   // 8. Заполняем оставшиеся пустые места точками (DOT)
   for (let y = 1; y < BOARD_HEIGHT - 1; y++) {
     for (let x = 1; x < BOARD_WIDTH - 1; x++) {
@@ -282,73 +252,61 @@ const clearPosition = (x, y) => {
   
   // Проверка столкновений
   const checkCollisions = () => {
-  // Создаем копию массива для безопасной итерации
-  const currentGhosts = [...ghosts.value];
+  // Создаем копию массива привидений, чтобы избежать проблем с индексацией при удалении
+  const ghostsCopy = [...ghosts.value];
   
-  // Проверяем каждого призрака
-  for (const ghost of currentGhosts) {
-    // Точное сравнение позиций с учетом возможного "проскакивания"
-    const isColliding = (
-      // Точное совпадение
-      (ghost.position.x === pacman.position.x && ghost.position.y === pacman.position.y) ||
-      // Либо призрак "проскочил" через Пакмана между кадрами
-      (Math.abs(ghost.position.x - pacman.position.x) <= 1 && 
-       Math.abs(ghost.position.y - pacman.position.y) <= 1 &&
-       Math.abs(ghost.direction.x) + Math.abs(ghost.direction.y) > 1)
-    );
-
-    if (isColliding) {
+  ghostsCopy.forEach((ghost, index) => {
+    // Точное сравнение позиций
+    if (ghost.position.x === pacman.position.x && ghost.position.y === pacman.position.y) {
       if (isInvincible.value) {
-        // Удаляем призрака из оригинального массива
-        const index = ghosts.value.findIndex(g => 
+        // Пакман неуязвим - убиваем привидение
+        score.value += 200;
+        // Находим индекс привидения в основном массиве
+        const realIndex = ghosts.value.findIndex(g => 
           g.position.x === ghost.position.x && 
-          g.position.y === ghost.position.y
+          g.position.y === ghost.position.y &&
+          g.color === ghost.color
         );
         
-        if (index !== -1) {
-          ghosts.value.splice(index, 1);
-          score.value += 200;
-          
-          // Возрождение через 5 секунд
-          setTimeout(() => {
-            if (!gameOver.value) {
-              ghosts.value.push({
-                ...ghost,
-                position: { x: 8, y: 8 }, // Центр для возрождения
-                direction: { x: [-1, 0, 1][Math.floor(Math.random()*3)], 
-                            y: [-1, 0, 1][Math.floor(Math.random()*3)] }
-              });
-            }
-          }, 5000);
+        if (realIndex !== -1) {
+          ghosts.value.splice(realIndex, 1);
         }
+        
+        // Через 5 секунд возрождаем привидение
+        setTimeout(() => {
+          if (!gameOver.value) {
+            ghosts.value.push({
+              position: { x: 8, y: 8 }, // Центральная позиция для возрождения
+              direction: { x: Math.random() < 0.5 ? -1 : 1, y: 0 },
+              color: ghost.color,
+              speed: 200
+            });
+          }
+        }, 5000);
       } else {
-        handlePacmanDeath();
-        break; // Прерываем проверку после смерти
+        // Обычное столкновение
+        lives.value--;
+        if (lives.value <= 0) {
+          gameOver.value = true;
+          alert('Игра окончена! Ваш счет: ' + score.value);
+        } else {
+          // Респавн пакмана и привидений
+          pacman.position = { x: 3, y: 1 };
+          pacman.direction = { x: 0, y: 0 };
+          pacman.nextDirection = { x: 0, y: 0 };
+          
+          ghosts.value = [
+            { position: { x: 13, y: 13 }, direction: { x: -1, y: 0 }, color: 'red', speed: 200 },
+            { position: { x: 3, y: 13 }, direction: { x: 1, y: 0 }, color: 'pink', speed: 200 },
+            { position: { x: 7, y: 8 }, direction: { x: 0, y: 1 }, color: 'cyan', speed: 200 },
+            { position: { x: 9, y: 6 }, direction: { x: 0, y: 1 }, color: 'green', speed: 200 },
+          ];
+        }
       }
     }
-  }
+  });
 };
-
-
-const handlePacmanDeath = () => {
-  lives.value--;
-  if (lives.value <= 0) {
-    gameOver.value = true;
-    alert(`Игра окончена! Счет: ${score.value}`);
-  } else {
-    // Респавн персонажей
-    pacman.position = { x: 3, y: 1 };
-    pacman.direction = { x: 0, y: 0 };
-    
-    ghosts.value = [
-      { position: { x: 13, y: 13 }, direction: { x: -1, y: 0 }, color: 'red', speed: 200 },
-      { position: { x: 3, y: 13 }, direction: { x: 1, y: 0 }, color: 'pink', speed: 200 },
-      { position: { x: 7, y: 8 }, direction: { x: 0, y: 1 }, color: 'cyan', speed: 200 },
-      { position: { x: 9, y: 6 }, direction: { x: 0, y: 1 }, color: 'green', speed: 200 }
-    ];
-  }
-};
-
+  
   // Движение пакмана
   const movePacman = () => {
     if (gameOver.value) return;
@@ -376,7 +334,7 @@ if (isValidPosition(newX, newY)) {
       } else if (board.value[newY][newX] === POWER_PELLET) {
         score.value += 50;
         board.value[newY][newX] = EMPTY;
-      } else if (board.value[newY][newX] === BONUS || board.value[newY][newX] === BONUS2 ||board.value[newY][newX] === BONUS3) {
+      } else if (board.value[newY][newX] === BONUS) {
         score.value += 100;
         board.value[newY][newX] = EMPTY;
         activateInvincibility();
@@ -641,16 +599,6 @@ const handleSwipe = () => {
     z-index: 9;
     height: 15vw;
   }
-
-    .bonus-img{
-transform: rotate(-47deg) skewX(7deg);
-    position: absolute;
-    width: 4.8vw;
-    left: -1.1vw;
-    bottom: -1.3vw;
-    z-index: 9;
-    height: 7.8vw;
-  }
   
   .row {
     display: flex;
@@ -686,7 +634,17 @@ transform: rotate(-47deg) skewX(7deg);
     transform: translate(-50%, -50%);
   }
   
-  
+  .bonus::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 6px;
+    height: 6px;
+    background-color: #FF0000;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
   
   .power-pellet::after {
     content: '';
@@ -705,13 +663,9 @@ transform: rotate(-47deg) skewX(7deg);
     font-weight: bold;
   }
   
- .invincible .pacmen {
-  animation: blink 0.5s infinite;
-}
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
-}
+  .invincible .pacmen {
+   opacity: 0.5;
+  }
   
   .ghost-img {
     position: absolute;

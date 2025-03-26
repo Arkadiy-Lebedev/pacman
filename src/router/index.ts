@@ -12,7 +12,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'loby',
-      component: Loby
+      component: Pacmen
     },
     {
       path: '/analysis',
