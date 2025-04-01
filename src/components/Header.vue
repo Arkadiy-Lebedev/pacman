@@ -20,7 +20,7 @@ import question from './icons/question.vue';
   
   <style scoped>
 .header{
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   background-color: rgb(255, 255, 255);

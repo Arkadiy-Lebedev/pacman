@@ -1,9 +1,8 @@
 
 <template>
-  <Header/>
-    <Panel :bonus1="bonus1" :bonus2="bonus2" :bonus3="bonus3"/>
   <div class="wrapper">
-  
+    <Header/>
+    <Panel :bonus1="bonus1" :bonus2="bonus2" :bonus3="bonus3"/>
         <div class="game-info">
           <div>Жизни: {{ lives }}</div>
           <div>Очки: {{ score }}</div>

@@ -37,7 +37,7 @@ defineProps<{
   
   <style scoped>
 .panel{
-  position: fixed;
+  position: absolute;
   bottom: calc(var(--app-width) * 9.9 / 100);
   left: 50%;
   transform: translateX(-50%);
