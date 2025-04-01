@@ -1,5 +1,7 @@
 
 <template>
+  <Header/>
+    <Panel :bonus1="bonus1" :bonus2="bonus2" :bonus3="bonus3"/>
   <div class="wrapper">
   
         <div class="game-info">
@@ -69,11 +71,19 @@
   
     <script setup lang="ts">
         //@ts-nocheck
-    import { ref, reactive, onMounted, onBeforeUnmount, computed } from 'vue';
+    import { ref, reactive, onMounted, onBeforeUnmount, computed, watch } from 'vue';
    import monster1 from '@/assets/images/pacmen/m1.svg'
     import monster2 from '@/assets/images/pacmen/m2.svg'
      import monster3 from '@/assets/images/pacmen/m3.svg'
-  
+     import Header from '@/components/Header.vue';
+     import Panel from '@/components/Panel.vue';
+
+     const bonus1 = ref(0);
+     const bonus2 = ref(0);
+     const bonus3 = ref(0);
+     const countDot = ref(0)
+
+
     function getRandomNumber() {
     return `bonus-${Math.floor(Math.random() * 3) + 1}`
   }
@@ -103,6 +113,13 @@
     const isInvincible = ref(false);
     const invincibilityEndTime = ref(0);
     const ghostSpeedMultiplier = ref(1);
+
+    watch( score, (newScoreDot) => {    
+      if(countDot.value == score.value){
+        alert('Вы победили!')
+      }
+     })
+
     
     // Вычисляемое свойство для оставшегося времени неуязвимости
     const invincibilityTimeLeft = computed(() => {
@@ -135,6 +152,7 @@
     
     // Инициализация игрового поля
     const initBoard = () => {
+      countDot.value = 0;
     // Инициализация пустой доски
     board.value = Array(BOARD_HEIGHT).fill().map(() => Array(BOARD_WIDTH).fill(EMPTY));
   
@@ -174,7 +192,7 @@
         }
       }
     }
-  
+
     // 6. Создаем список всех возможных позиций для бонусов
     const availablePositions = [];
     for (let y = 1; y < BOARD_HEIGHT - 1; y++) {
@@ -213,10 +231,13 @@
         if (board.value[y][x] === EMPTY && 
             !(x === pacman.position.x && y === pacman.position.y) &&
             !ghosts.value.some(g => g.position.x === x && g.position.y === y)) {
+              countDot.value += 1;
           board.value[y][x] = DOT;
         }
       }
     }
+
+    console.log(    countDot.value )
   
     // Убедимся, что начальные позиции валидны
     // pacman.position = { x: Math.min(1, BOARD_WIDTH - 2), y: Math.min(1, BOARD_HEIGHT - 2) };
@@ -247,17 +268,19 @@
     }
   };
     
+  let timer:any
     // Активация неуязвимости
     const activateInvincibility = () => {
+      clearTimeout(timer); // Очистка предыдущего таймера, если он существует
       isInvincible.value = true;
       ghostSpeedMultiplier.value = 2; // Приведения двигаются быстрее
-      invincibilityEndTime.value = Date.now() + 10000; // 10 секунд
+      invincibilityEndTime.value = Date.now() + 5000; // 5 секунд
       
       // Устанавливаем таймер для отключения неуязвимости
-      setTimeout(() => {
+      timer = setTimeout(() => {
         isInvincible.value = false;
         ghostSpeedMultiplier.value = 1;
-      }, 10000);
+      }, 5000); // 5 секунд
     };
     
     // Сброс игры
@@ -311,7 +334,7 @@
           
           if (index !== -1) {
             ghosts.value.splice(index, 1);
-            score.value += 200;
+            // score.value += 200;
             
             // Возрождение через 5 секунд
             setTimeout(() => {
@@ -375,13 +398,23 @@
         
         // Собираем точки и бонусы
         if (board.value[newY][newX] === DOT) {
-          score.value += 10;
+          score.value += 1;
           board.value[newY][newX] = EMPTY;
         } else if (board.value[newY][newX] === POWER_PELLET) {
-          score.value += 50;
+          // score.value += 1;
           board.value[newY][newX] = EMPTY;
-        } else if (board.value[newY][newX] === BONUS || board.value[newY][newX] === BONUS2 ||board.value[newY][newX] === BONUS3) {
-          score.value += 100;
+        } else if (board.value[newY][newX] === BONUS) {
+        bonus1.value++
+          board.value[newY][newX] = EMPTY;
+          activateInvincibility();
+        }
+        else if (board.value[newY][newX] === BONUS2) {
+        bonus2.value++
+          board.value[newY][newX] = EMPTY;
+          activateInvincibility();
+        }
+        else if (board.value[newY][newX] === BONUS3) {
+        bonus3.value++
           board.value[newY][newX] = EMPTY;
           activateInvincibility();
         }
@@ -608,6 +641,8 @@
       touch-action: none; 
     user-select: none;
     -webkit-user-select: none;
+    background-color:  rgba(227, 228, 227, 1);
+;
   }
   
     .pacman-game {
