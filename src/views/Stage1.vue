@@ -1,15 +1,28 @@
 
 <template>
-  <div class="wrapper">
-    <Header/>
-    <Panel :bonus1="bonus1" :bonus2="bonus2" :bonus3="bonus3"/>
-        <div class="game-info">
+  <div  class="wrapper">
+    <Header :isQuestion="gameStarted"/>
+    <div v-if="isScrenSever" class="">
+      <Screensever page="stage-2" color="#EF3124"/>
+    </div>
+
+    <div v-if="!gameStarted && endAnimate" class="">
+      <ModalStart @close="resetGame" stage="stage-1" />
+    </div>
+      <div v-if="finishGame" class="">
+      <ModalEnd @close="goNext" stage="stage-1" />
+    </div>
+<div v-if="gameStarted">
+    <Panel :bonus1="bonus1" :bonus2="bonus2" :bonus3="bonus3" stage="stage1"/>
+</div>
+
+        <!-- <div class="game-info">
           <div>Жизни: {{ lives }}</div>
           <div>Очки: {{ score }}</div>
-          <!-- <div v-if="isInvincible">Неуязвимость: {{ invincibilityTimeLeft }} сек</div> -->
+
           <button @click="resetGame">Сбросить игру</button>
-        </div>
-        <div class="wrapper-game">
+        </div> -->
+        <div ref="wrapperRef" class="wrapper-game">
               <img class="house" src="@/assets/images/pacmen/house1.png" alt="">
       <div class="pacman-game">
         <div class="game-board">
@@ -76,12 +89,19 @@
      import monster3 from '@/assets/images/pacmen/m3.svg'
      import Header from '@/components/Header.vue';
      import Panel from '@/components/Panel.vue';
+     import ModalStart from '@/UI/ModalStart/ModalStart.vue';
+     import ModalEnd from '@/UI/ModalEnd/ModalEnd.vue';
+      import Screensever from '@/UI/Screensever.vue';
+     import { gsap } from 'gsap'
 
      const bonus1 = ref(0);
      const bonus2 = ref(0);
      const bonus3 = ref(0);
      const countDot = ref(0)
-
+const wrapperRef =ref<HTMLElement | null>(null)
+  const endAnimate = ref(false)
+  const finishGame = ref(false)
+  const isScrenSever  = ref(false)
 
     function getRandomNumber() {
     return `bonus-${Math.floor(Math.random() * 3) + 1}`
@@ -105,7 +125,7 @@
     const board = ref(Array(BOARD_HEIGHT).fill().map(() => Array(BOARD_WIDTH).fill(EMPTY)));
     
     // Состояние игры
-    const lives = ref(3);
+    const lives = ref(5);
     const score = ref(0);
     const gameOver = ref(false);
     const gameStarted = ref(false);
@@ -115,11 +135,17 @@
 
     watch( score, (newScoreDot) => {    
       if(countDot.value == score.value){
-        alert('Вы победили!')
+        // alert('Вы победили!')
+        finishGame.value = true
+        gameOver.value = true
+        gameStarted.value = false
       }
      })
 
-    
+    const goNext = () => {
+      // finishGame.value = false
+      isScrenSever.value = true
+    }
     // Вычисляемое свойство для оставшегося времени неуязвимости
     const invincibilityTimeLeft = computed(() => {
       return Math.max(0, Math.ceil((invincibilityEndTime.value - Date.now()) / 1000));
@@ -283,8 +309,9 @@
     };
     
     // Сброс игры
-    const resetGame = () => {
-      lives.value = 3;
+    const resetGame = () => {    
+    gameStarted.value = true;
+      lives.value = 5;
       score.value = 0;
       gameOver.value = false;
       gameStarted.value = true;
@@ -361,17 +388,18 @@
     if (lives.value <= 0) {
       gameOver.value = true;
       alert(`Игра окончена! Счет: ${score.value}`);
+      
     } else {
       // Респавн персонажей
       pacman.position = { x: 3, y: 1 };
       pacman.direction = { x: 0, y: 0 };
       
-      ghosts.value = [
-      { position: { x: 13, y: 13 }, direction: { x: -1, y: 0 }, color: 'red', speed: 200, monster: monster1 },
-      { position: { x: 3, y: 13 }, direction: { x: 1, y: 0 }, color: 'pink', speed: 200, monster: monster1 },
-      { position: { x: 7, y: 8 }, direction: { x: 0, y: 1 }, color: 'cyan', speed: 200, monster: monster1 },
-      { position: { x: 9, y: 6 }, direction: { x: 0, y: 1 }, color: 'green', speed: 200, monster: monster1 },
-      ];
+      // ghosts.value = [
+      // { position: { x: 13, y: 13 }, direction: { x: -1, y: 0 }, color: 'red', speed: 200, monster: monster1 },
+      // { position: { x: 3, y: 13 }, direction: { x: 1, y: 0 }, color: 'pink', speed: 200, monster: monster1 },
+      // { position: { x: 7, y: 8 }, direction: { x: 0, y: 1 }, color: 'cyan', speed: 200, monster: monster1 },
+      // { position: { x: 9, y: 6 }, direction: { x: 0, y: 1 }, color: 'green', speed: 200, monster: monster1 },
+      // ];
     }
   };
   
@@ -601,6 +629,11 @@
     
     // Хуки жизненного цикла
     onMounted(() => {
+      gsap.from(wrapperRef.value, { duration: 2, yPercent: 100, autoAlpha: 1, delay: 0.2, ease: 'power1.out' })
+      setTimeout(() => {
+        endAnimate.value = true;
+      },2000)
+
       initBoard();
       window.addEventListener('keydown', handleKeyDown);
   
@@ -621,11 +654,13 @@
     </script>
     
     <style scoped>
+
+
   .wrapper-game{
   
     height: calc(var(--app-width) * 180 / 100);
     position: relative;
-    margin-top: 30vh;
+
   }
   .house{
     position: absolute;
@@ -635,13 +670,14 @@
   }
   
   .wrapper{
+ 
     height: 100%;
     width: 100%;
       touch-action: none; 
     user-select: none;
     -webkit-user-select: none;
     background-color:  rgba(227, 228, 227, 1);
-;
+    padding-top: calc(var(--app-height)* 30 / 100);
   }
   
     .pacman-game {

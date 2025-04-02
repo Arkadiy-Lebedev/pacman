@@ -1,9 +1,37 @@
 
 <script setup lang="ts">
+import { ref } from 'vue';
+import s1 from '@/assets/images/panel/s1.svg';
+import s2 from '@/assets/images/panel/s2.svg';
+import s3 from '@/assets/images/panel/s3.svg';
+import s21 from '@/assets/images/panel/s2-1.svg';
+import s22 from '@/assets/images/panel/s2-2.svg';
+import s23 from '@/assets/images/panel/s2-3.svg';
+
+const images = {
+  stage1:{
+    i1:s1,
+     i2: s2,
+     i3: s3,
+  } ,
+  stage2:{
+    i1:s21,
+     i2: s22,
+     i3: s23,
+  },
+  stage3:{
+    i1:s21,
+     i2: s22,
+     i3: s23,
+  }
+
+}
+
 defineProps<{
     bonus1: number;
     bonus2: number;
     bonus3: number; 
+    stage: 'stage1' | 'stage2' | 'stage3';
 }>()
     </script>
     
@@ -11,19 +39,19 @@ defineProps<{
 <div class="panel">
   <div class="item">
     <div class="">
-       <img src="@/assets/images/panel/s1.svg" alt="" class="panel-img">
+       <img :src="images[stage].i1" alt="" class="panel-img">
     </div>   
     <p class="item-text">{{bonus1}}/2</p>    
   </div>
   <div class="item">
     <div class="">
-       <img src="@/assets/images/panel/s2.svg" alt="" class="panel-img">
+       <img :src="images[stage].i2" alt="" class="panel-img">
     </div>   
     <p class="item-text">{{bonus2}}/2</p>    
   </div>
   <div class="item">
     <div class="">
-       <img src="@/assets/images/panel/s3.svg" alt="" class="panel-img">
+       <img :src="images[stage].i3" alt="" class="panel-img">
     </div>   
     <p class="item-text">{{bonus3}}/2</p>    
   </div>
@@ -32,7 +60,7 @@ defineProps<{
   </template>
 
   <script setup lang="ts">
-    
+
   </script>
   
   <style scoped>

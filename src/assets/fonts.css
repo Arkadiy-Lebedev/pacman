@@ -12,7 +12,7 @@
 }
 
 @font-face {
-    font-family: 'gothampro';
+    font-family: 'StyreneALC';
     src:
         local('StyreneALC-Bold'),
         url('@/assets/fonts/StyreneALC-Bold.woff2') format('woff2'),
@@ -24,7 +24,7 @@
 }
 
 @font-face {
-    font-family: 'gothampro';
+    font-family: 'StyreneALC';
     src:
         local('StyreneALC-Black'),
         url('@/assets/fonts/StyreneALC-Black.woff2') format('woff2'),

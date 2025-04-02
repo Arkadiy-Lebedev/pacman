@@ -1,21 +1,16 @@
 
 <template>
-  <div  class="wrapper">
-    <Header :isQuestion="gameStarted"/>
-    <div v-if="isScrenSever" class="">
-      <Screensever page="stage-2" color="#EF3124"/>
-    </div>
-    <div v-if="!gameStarted && endAnimate" class="">
-      <ModalStart @close="resetGame" stage="stage-2" />
-    </div>
-      <div v-if="finishGame" class="">
-      <ModalEnd @close="goNext" stage="stage-2" />
-    </div>
-<div v-if="gameStarted">
-    <Panel :bonus1="bonus1" :bonus2="bonus2" :bonus3="bonus3" stage="stage2"/>
-</div>
-        <div ref="wrapperRef" class="wrapper-game">
-          <img class="house" src="@/assets/images/pacmen/house2.png" alt="">
+  <div class="wrapper">
+    <Header/>
+    <Panel :bonus1="bonus1" :bonus2="bonus2" :bonus3="bonus3"/>
+        <div class="game-info">
+          <div>Жизни: {{ lives }}</div>
+          <div>Очки: {{ score }}</div>
+          <!-- <div v-if="isInvincible">Неуязвимость: {{ invincibilityTimeLeft }} сек</div> -->
+          <button @click="resetGame">Сбросить игру</button>
+        </div>
+        <div class="wrapper-game">
+              <img class="house" src="@/assets/images/pacmen/house2.png" alt="">
       <div class="pacman-game">
         <div class="game-board">
           <div 
@@ -47,13 +42,13 @@
               </span>
   
                 <span v-if="cell === BONUS" class="bonus1-box">
-              <img class="bonus-img" src="@/assets/images/pacmen/level2/1.png" alt="">
+              <img class="bonus-img" src="@/assets/images/pacmen/level1/bonus1.png" alt="">
               </span>
                    <span v-if="cell === BONUS2" class="bonus1-box">
-              <img class="bonus-img" src="@/assets/images/pacmen/level2/2.png" alt="">
+              <img class="bonus-img" src="@/assets/images/pacmen/level1/bonus2.png" alt="">
               </span>
              <span v-if="cell === BONUS3" class="bonus1-box">
-              <img class="bonus-img" src="@/assets/images/pacmen/level2/3.png" alt="">
+              <img class="bonus-img" src="@/assets/images/pacmen/level1/bonus3.png" alt="">
               </span>
   
               <span 
@@ -76,24 +71,17 @@
     <script setup lang="ts">
         //@ts-nocheck
     import { ref, reactive, onMounted, onBeforeUnmount, computed, watch } from 'vue';
-   import monster1 from '@/assets/images/pacmen/m2.svg'
+   import monster1 from '@/assets/images/pacmen/m1.svg'
     import monster2 from '@/assets/images/pacmen/m2.svg'
      import monster3 from '@/assets/images/pacmen/m3.svg'
      import Header from '@/components/Header.vue';
      import Panel from '@/components/Panel.vue';
-     import ModalStart from '@/UI/ModalStart/ModalStart.vue';
-     import ModalEnd from '@/UI/ModalEnd/ModalEnd.vue';
-      import Screensever from '@/UI/Screensever.vue';
-     import { gsap } from 'gsap'
 
      const bonus1 = ref(0);
      const bonus2 = ref(0);
      const bonus3 = ref(0);
      const countDot = ref(0)
-const wrapperRef =ref<HTMLElement | null>(null)
-  const endAnimate = ref(false)
-  const finishGame = ref(false)
-  const isScrenSever  = ref(false)
+
 
     function getRandomNumber() {
     return `bonus-${Math.floor(Math.random() * 3) + 1}`
@@ -117,7 +105,7 @@ const wrapperRef =ref<HTMLElement | null>(null)
     const board = ref(Array(BOARD_HEIGHT).fill().map(() => Array(BOARD_WIDTH).fill(EMPTY)));
     
     // Состояние игры
-    const lives = ref(5);
+    const lives = ref(3);
     const score = ref(0);
     const gameOver = ref(false);
     const gameStarted = ref(false);
@@ -126,20 +114,12 @@ const wrapperRef =ref<HTMLElement | null>(null)
     const ghostSpeedMultiplier = ref(1);
 
     watch( score, (newScoreDot) => {    
-      console.log(score.value)
-      if(score.value  >=67){
-        console.log(score.value)
-        // alert('Вы победили!')
-        finishGame.value = true;
-        gameOver.value = true
-        gameStarted.value = false
+      if(countDot.value == score.value){
+        alert('Вы победили!')
       }
      })
 
-    const goNext = () => {
-      // finishGame.value = false
-      isScrenSever.value = true
-    }
+    
     // Вычисляемое свойство для оставшегося времени неуязвимости
     const invincibilityTimeLeft = computed(() => {
       return Math.max(0, Math.ceil((invincibilityEndTime.value - Date.now()) / 1000));
@@ -302,9 +282,8 @@ const wrapperRef =ref<HTMLElement | null>(null)
     };
     
     // Сброс игры
-    const resetGame = () => {    
-    gameStarted.value = true;
-      lives.value = 5;
+    const resetGame = () => {
+      lives.value = 3;
       score.value = 0;
       gameOver.value = false;
       gameStarted.value = true;
@@ -319,7 +298,7 @@ const wrapperRef =ref<HTMLElement | null>(null)
       { position: { x: 13, y: 13 }, direction: { x: -1, y: 0 }, color: 'red', speed: 200, monster: monster1 },
       { position: { x: 3, y: 13 }, direction: { x: 1, y: 0 }, color: 'pink', speed: 200, monster: monster1 },
       { position: { x: 7, y: 8 }, direction: { x: 0, y: 1 }, color: 'cyan', speed: 200, monster: monster1 },
-      { position: { x: 9, y: 5 }, direction: { x: 0, y: 1 }, color: 'green', speed: 200, monster: monster1 },
+      { position: { x: 9, y: 6 }, direction: { x: 0, y: 1 }, color: 'green', speed: 200, monster: monster1 },
   ];
       
       initBoard();
@@ -360,7 +339,7 @@ const wrapperRef =ref<HTMLElement | null>(null)
               if (!gameOver.value) {
                 ghosts.value.push({
                   ...ghost,
-                  position: {  x: 7, y: 8 }, // Центр для возрождения
+                  position: { x: 8, y: 8 }, // Центр для возрождения
                   direction: { x: [-1, 0, 1][Math.floor(Math.random()*3)], 
                               y: [-1, 0, 1][Math.floor(Math.random()*3)] }
                 });
@@ -378,22 +357,20 @@ const wrapperRef =ref<HTMLElement | null>(null)
   
   const handlePacmanDeath = () => {
     lives.value--;
-    console.log(lives.value);
     if (lives.value <= 0) {
       gameOver.value = true;
       alert(`Игра окончена! Счет: ${score.value}`);
- 
     } else {
       // Респавн персонажей
       pacman.position = { x: 3, y: 1 };
       pacman.direction = { x: 0, y: 0 };
       
-      // ghosts.value = [
-      // { position: { x: 13, y: 13 }, direction: { x: -1, y: 0 }, color: 'red', speed: 200, monster: monster1 },
-      // { position: { x: 3, y: 13 }, direction: { x: 1, y: 0 }, color: 'pink', speed: 200, monster: monster1 },
-      // { position: { x: 7, y: 8 }, direction: { x: 0, y: 1 }, color: 'cyan', speed: 200, monster: monster1 },
-      // { position: { x: 9, y: 5 }, direction: { x: 0, y: 1 }, color: 'green', speed: 200, monster: monster1 },
-      // ];
+      ghosts.value = [
+      { position: { x: 13, y: 13 }, direction: { x: -1, y: 0 }, color: 'red', speed: 200, monster: monster1 },
+      { position: { x: 3, y: 13 }, direction: { x: 1, y: 0 }, color: 'pink', speed: 200, monster: monster1 },
+      { position: { x: 7, y: 8 }, direction: { x: 0, y: 1 }, color: 'cyan', speed: 200, monster: monster1 },
+      { position: { x: 9, y: 6 }, direction: { x: 0, y: 1 }, color: 'green', speed: 200, monster: monster1 },
+      ];
     }
   };
   
@@ -623,11 +600,6 @@ const wrapperRef =ref<HTMLElement | null>(null)
     
     // Хуки жизненного цикла
     onMounted(() => {
-      gsap.from(wrapperRef.value, { duration: 2, yPercent: 100, autoAlpha: 1, delay: 0.2, ease: 'power1.out' })
-      setTimeout(() => {
-        endAnimate.value = true;
-      },2000)
-
       initBoard();
       window.addEventListener('keydown', handleKeyDown);
   
@@ -648,168 +620,168 @@ const wrapperRef =ref<HTMLElement | null>(null)
     </script>
     
     <style scoped>
-    .wrapper-game{
-    
-      height: calc(var(--app-width) * 180 / 100);
-      position: relative;
-
+  .wrapper-game{
+  
+    height: calc(var(--app-width) * 180 / 100);
+    position: relative;
+    margin-top: 30vh;
+  }
+  .house{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(var(--app-width)* 100 / 100);
+  }
+  
+  .wrapper{
+    height: 100%;
+    width: 100%;
+      touch-action: none; 
+    user-select: none;
+    -webkit-user-select: none;
+    background-color:  rgba(227, 228, 227, 1);
+;
+  }
+  
+    .pacman-game {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-family: Arial, sans-serif;
     }
-    .house{
+    
+    .game-info {
+      margin-bottom: 20px;
+      font-size: 1.2em;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    
+  .game-board {
+     
+      transform: rotate(30deg) skewX(-30deg);
+      width: calc(var(--app-width)* 60.8 / 100);
+      height: calc(var(--app-width)* 59.6 / 100);
+      transform-origin: top center;
       position: absolute;
-      top: 0;
-      left: 0;
-      width: calc(var(--app-width)* 100 / 100);
+      top: calc(var(--app-width)* 15.1 / 100);
+      left: 126%;
+      margin-left: calc(var(--app-width)* -80.2 / 100);
+  }
+    .pacmen{
+      transform: rotate(-41deg) skewX(7deg);
+      position: absolute;
+      width: calc(var(--app-width) * 6.8 / 100);
+      left: calc(var(--app-width) * -5.9 / 100);;
+      bottom: calc(var(--app-width) * -1.5 / 100);;
+      z-index: 9;
+      height: calc(var(--app-width) * 15 / 100);;
+    }
+  
+      .bonus-img{
+  transform: rotate(-47deg) skewX(7deg);
+      position: absolute;
+      width: calc(var(--app-width) * 4.8 / 100);;
+      left: calc(var(--app-width) * -1.1/ 100);;
+      bottom: calc(var(--app-width) * -1.3 / 100);;
+      z-index: 9;
+      height: calc(var(--app-width) * 7.8 / 100);;
     }
     
-    .wrapper{
-      height: 100%;
-      width: 100%;
-        touch-action: none; 
-      user-select: none;
-      -webkit-user-select: none;
-      background-color:  #EF3124;
-      padding-top: 30vh;
+    .row {
+      display: flex;
     }
     
-      .pacman-game {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        font-family: Arial, sans-serif;
-      }
-      
-      .game-info {
-        margin-bottom: 20px;
-        font-size: 1.2em;
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-      }
-      
-    .game-board {
-       
-        transform: rotate(30deg) skewX(-30deg);
-        width: calc(var(--app-width)* 60.8 / 100);
-        height: calc(var(--app-width)* 59.6 / 100);
-        transform-origin: top center;
-        position: absolute;
-        top: calc(var(--app-width)* 15.1 / 100);
-        left: 126%;
-        margin-left: calc(var(--app-width)* -80.2 / 100);
+    .cell {
+      width: calc(var(--app-width)* 5.2 / 100);
+      height: calc(var(--app-width)* 4.5 / 100);
+      box-sizing: border-box;
+      position: relative;
+      background-color: #7A7A7A;
     }
-      .pacmen{
-        transform: rotate(-41deg) skewX(7deg);
-        position: absolute;
-        width: calc(var(--app-width) * 6.8 / 100);
-        left: calc(var(--app-width) * -5.9 / 100);;
-        bottom: calc(var(--app-width) * -1.5 / 100);;
-        z-index: 9;
-        height: calc(var(--app-width) * 15 / 100);;
-      }
+  
+  
     
-        .bonus-img{
-    transform: rotate(-47deg) skewX(7deg);
-        position: absolute;
-        width: calc(var(--app-width) * 4.8 / 100);;
-        left: calc(var(--app-width) * -1.1/ 100);;
-        bottom: calc(var(--app-width) * -1.3 / 100);;
-        z-index: 9;
-        height: calc(var(--app-width) * 7.8 / 100);;
-      }
-      
-      .row {
-        display: flex;
-      }
-      
-      .cell {
-        width: calc(var(--app-width)* 5.2 / 100);
-        height: calc(var(--app-width)* 4.5 / 100);
-        box-sizing: border-box;
-        position: relative;
-        background-color: #7A7A7A;
-      }
-    
-    
-      
-      .wall {
-        background-color: #c40000;
-      }
-      
-      .cell.wall{
-            background-color: transparent;
-      }
-      
-      .dot::after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 4px;
-        height: 4px;
-        background-color: #000000;
-        border-radius: 50%;
-        transform: translate(-50%, -50%);
-      }
-      
-      
-      
-      .power-pellet::after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 4px;
-        height: 4px;
-        background-color: #000000;
-        border-radius: 50%;
-        transform: translate(-50%, -50%);
-      }
-      
-      .pacman-icon {
-        color: yellow;
-        font-weight: bold;
-      }
-      
-     .invincible .pacmen {
-      animation: blink 0.5s infinite;
+    .wall {
+      background-color: #c40000;
     }
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
+    
+    .cell.wall{
+          background-color: transparent;
     }
-      
-      .ghost-img {
-        position: absolute;
-        bottom: calc(var(--app-width) * 0.3 / 100);;
-        left: calc(var(--app-width) * -4.7 / 100);;
-        width: calc(var(--app-width) * 8.9 / 100);;
-        transform: rotate(-52.5deg) skewX(-8deg);
-        z-index: 9;
-        height: calc(var(--app-width) * 10 / 100);;
     
-      }
+    .dot::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 4px;
+      height: 4px;
+      background-color: #000000;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+    }
     
-      /* .horror{
-        filter: brightness(0.3);
-      } */
-      
-      button {
-        padding: 5px 10px;
-        margin-top: 10px;
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-      }
-      
-      button:hover {
-        background-color: #45a049;
-      }
-      
-      .outer-wall{
-        background-color: #FF0000;
-        width: 0;
-        height: 0;
-      }
-      </style>
+    
+    
+    .power-pellet::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 4px;
+      height: 4px;
+      background-color: #000000;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+    }
+    
+    .pacman-icon {
+      color: yellow;
+      font-weight: bold;
+    }
+    
+   .invincible .pacmen {
+    animation: blink 0.5s infinite;
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+    
+    .ghost-img {
+      position: absolute;
+      bottom: calc(var(--app-width) * 0.3 / 100);;
+      left: calc(var(--app-width) * -4.7 / 100);;
+      width: calc(var(--app-width) * 8.9 / 100);;
+      transform: rotate(-52.5deg) skewX(-8deg);
+      z-index: 9;
+      height: calc(var(--app-width) * 10 / 100);;
+  
+    }
+  
+    /* .horror{
+      filter: brightness(0.3);
+    } */
+    
+    button {
+      padding: 5px 10px;
+      margin-top: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+    button:hover {
+      background-color: #45a049;
+    }
+    
+    .outer-wall{
+      background-color: #FF0000;
+      width: 0;
+      height: 0;
+    }
+    </style>

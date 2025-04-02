@@ -1,6 +1,10 @@
 
 <script setup lang="ts">
 import question from './icons/question.vue';
+
+defineProps<{
+    isQuestion?: boolean;
+}>()
     </script>
     
 <template>
@@ -8,15 +12,13 @@ import question from './icons/question.vue';
   <div class="">
     <img src="@/assets/images/logo.svg" alt="" class="logo">
   </div>
-  <div class="">
+  <div  v-if="isQuestion"  class="">
 <question/>
   </div>
 </div>
   </template>
 
-  <script setup lang="ts">
-    
-  </script>
+
   
   <style scoped>
 .header{
@@ -29,6 +31,7 @@ import question from './icons/question.vue';
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 10;
 }
 
 .logo{

@@ -17,11 +17,12 @@ defineProps<{
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    border-radius: 10px;
-    background-color: #E5E5E5;
-    height: calc(var(--app-width)* 9.3 / 100);
-    padding-left: calc(var(--app-width)* 4.3 / 100);
-    padding-right: calc(var(--app-width)* 4.3 / 100);
+width: 100%;
+    background-image: url('@/UI/Button/bg.svg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height: calc(var(--app-width)* 12.7 / 100);
+
     cursor: pointer;
     transition: all 0.3s ease;
 
@@ -38,10 +39,12 @@ defineProps<{
 
 .btn-text {
     display: block;
-    color: #979797;
-    font-weight: 500;
-    font-size: calc(var(--app-width)* 4.8 / 100);
-            
+    color: white;
+    font-weight: 800;
+    font-size: calc(var(--app-width)* 4.25 / 100);
+    text-transform: uppercase;
+    color: #181717;        
+    padding-top: calc(var(--app-width)* 1.35 / 100);
 }
 
 .outline .btn-text{
@@ -50,17 +53,18 @@ defineProps<{
 }
 
 @media (min-width: 768px) {
-  .btn:hover{
-background-color: #979797;
+  .btn:not(.disabled):hover{
+background-color: #092348;
   }
 
   .outline.btn:hover{
     border: 2px solid #092348;
     background-color: transparent;
+    
   }
 
-  .btn:hover .btn-text{
-    color: #FFFFFF;
+  .outline.btn:hover .btn-text{
+    color: #092348;
   
   }
 

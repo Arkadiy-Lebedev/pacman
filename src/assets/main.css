@@ -8,7 +8,7 @@ body {
   font-family: 'StyreneALC';
   font-weight: normal;
   font-style: normal;
-  line-height: calc(var(--app-height) * 2.5 / 100);
+  line-height: calc(var(--app-height) * 2.8 / 100);
   min-height: var(--app-height);
   width: var(--app-width);
   font-size: calc(var(--app-width)* 4.25 / 100);
@@ -17,8 +17,7 @@ body {
   color: var(--color-text);
   background: #EAEFF7;
   /* background-image: url('@/assets/images/main/bg.svg'); */
-  background-repeat: no-repeat;
- background-position: 50% 70%;
+background-color: #EF3124;
   overflow: hidden;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   overscroll-behavior: none;
@@ -51,7 +50,9 @@ main {
 .--center{
   text-align: center;
 }
-
+.--bold{
+  font-weight: 600;
+}
 
 .fade-enter-active,
 .fade-leave-active {
@@ -85,7 +86,7 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #EAEFF7;
+    background-color: #EF3124;
     /* background-image: url('./images/bg.jpg'); */
     background-repeat: no-repeat;
     background-size: cover;
