@@ -1,11 +1,11 @@
 @font-face {
-    font-family: 'gothampro';
+    font-family: 'StyreneALC';
     src:
         
-        local('gothampro_medium'),
-        url('@/assets/fonts/gothampro_medium.woff2') format('woff2'),
-        url('@/assets/fonts/gothampro_medium.woff') format('woff'),
-        url('@/assets/fonts/gothampro_medium.ttf') format('truetype');
+        local('StyreneALC-Regular'),
+        url('@/assets/fonts/StyreneALC-Regular.woff2') format('woff2'),
+        url('@/assets/fonts/StyreneALC-Regular.woff') format('woff'),
+        url('@/assets/fonts/StyreneALC-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -14,11 +14,24 @@
 @font-face {
     font-family: 'gothampro';
     src:
-        local('gothampro_bold'),
-        url('@/assets/fonts/gothampro_bold.woff2') format('woff2'),
-        url('@/assets/fonts/gothampro_bold.woff') format('woff'),
-        url('@/assets/fonts/gothampro_bold.ttf') format('truetype');
+        local('StyreneALC-Bold'),
+        url('@/assets/fonts/StyreneALC-Bold.woff2') format('woff2'),
+        url('@/assets/fonts/StyreneALC-Bold.woff') format('woff'),
+        url('@/assets/fonts/StyreneALC-Bold.ttf') format('truetype');
     font-weight: 600;
     font-style: normal;
     font-display: swap;
 }
+
+@font-face {
+    font-family: 'gothampro';
+    src:
+        local('StyreneALC-Black'),
+        url('@/assets/fonts/StyreneALC-Black.woff2') format('woff2'),
+        url('@/assets/fonts/StyreneALC-Black.woff') format('woff'),
+        url('@/assets/fonts/StyreneALC-Black.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+}
+
