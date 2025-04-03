@@ -2,6 +2,9 @@
 <template>
   <div  class="wrapper">
     <Header :isQuestion="gameStarted"/>
+    <div class="lives-box">
+      <Laves :count='lives' stage="stage1"/>
+    </div>
     <div v-if="isScrenSever" class="">
       <Screensever page="stage-2" color="#EF3124"/>
     </div>
@@ -11,6 +14,9 @@
     </div>
       <div v-if="finishGame" class="">
       <ModalEnd @close="goNext" stage="stage-1" />
+    </div>
+         <div v-if="gameOver" class="">
+      <ModalRestart @close="resetGame" stage="stage-1" />
     </div>
 <div v-if="gameStarted">
     <Panel :bonus1="bonus1" :bonus2="bonus2" :bonus3="bonus3" stage="stage1"/>
@@ -86,10 +92,12 @@
     import { ref, reactive, onMounted, onBeforeUnmount, computed, watch } from 'vue';
    import monster1 from '@/assets/images/pacmen/m1.svg'
     import monster2 from '@/assets/images/pacmen/m2.svg'
-     import monster3 from '@/assets/images/pacmen/m3.svg'
+     import monster3 from '@/assets/images/pacmen/m1-horror.svg'
      import Header from '@/components/Header.vue';
      import Panel from '@/components/Panel.vue';
+     import Laves from '@/components/Lives.vue';
      import ModalStart from '@/UI/ModalStart/ModalStart.vue';
+     import ModalRestart from '@/UI/ModalRestart/ModalRestart.vue';
      import ModalEnd from '@/UI/ModalEnd/ModalEnd.vue';
       import Screensever from '@/UI/Screensever.vue';
      import { gsap } from 'gsap'
@@ -387,7 +395,7 @@ const wrapperRef =ref<HTMLElement | null>(null)
     lives.value--;
     if (lives.value <= 0) {
       gameOver.value = true;
-      alert(`Игра окончена! Счет: ${score.value}`);
+      // alert(`Игра окончена! Счет: ${score.value}`);
       
     } else {
       // Респавн персонажей
@@ -654,7 +662,11 @@ const wrapperRef =ref<HTMLElement | null>(null)
     </script>
     
     <style scoped>
-
+.lives-box{
+  position: absolute;
+  top:  calc(var(--app-width) * 28 / 100);
+  left: calc(var(--app-width) * 6.7 / 100);
+}
 
   .wrapper-game{
   
