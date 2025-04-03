@@ -2,7 +2,7 @@
 <template>
   <div  class="wrapper">
     <div class="lives-box">
-      <Laves :count='lives' stage="stage2"/>
+      <livesPucman :count='lives' stage="stage2"/>
     </div>
     <Header :isQuestion="gameStarted"/>
     <div v-if="isScrenSever" class="">
@@ -86,7 +86,7 @@
     import monster2 from '@/assets/images/pacmen/m2.svg'
      import monster3 from '@/assets/images/pacmen/m2-horror.svg'
      import Header from '@/components/Header.vue';
-     import Laves from '@/components/Lives.vue';
+     import livesPucman from '@/components/livesPucman.vue';
      import Panel from '@/components/Panel.vue';
      import ModalRestart from '@/UI/ModalRestart/ModalRestart.vue';
      import ModalStart from '@/UI/ModalStart/ModalStart.vue';
