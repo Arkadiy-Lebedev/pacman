@@ -14,10 +14,10 @@
       <div v-if="finishGame" class="">
       <ModalEnd @close="goNext" stage="stage-2" />
     </div>
-    <div v-if="gameOver" class="">
+    <div v-if="gameOver && !finishGame" class="">
       <ModalRestart @close="resetGame" stage="stage-2" />
     </div>
-<div v-if="gameStarted">
+<div v-if="gameStarted && !gameOver">
     <Panel :bonus1="bonus1" :bonus2="bonus2" :bonus3="bonus3" stage="stage2"/>
 </div>
         <div ref="wrapperRef" class="wrapper-game">
@@ -306,7 +306,7 @@ const wrapperRef =ref<HTMLElement | null>(null)
       timer = setTimeout(() => {
         isInvincible.value = false;
         ghostSpeedMultiplier.value = 1;
-      }, 5000); // 5 секунд
+      }, 8000); // 8 секунд
     };
     
     // Сброс игры
@@ -711,15 +711,15 @@ const wrapperRef =ref<HTMLElement | null>(null)
         left: 126%;
         margin-left: calc(var(--app-width)* -80.2 / 100);
     }
-      .pacmen{
-        transform: rotate(-41deg) skewX(7deg);
-        position: absolute;
-        width: calc(var(--app-width) * 6.8 / 100);
-        left: calc(var(--app-width) * -5.9 / 100);;
-        bottom: calc(var(--app-width) * -1.5 / 100);;
-        z-index: 9;
-        height: calc(var(--app-width) * 15 / 100);;
-      }
+    .pacmen{
+      transform: rotate(-41deg) skewX(7deg);
+    position: absolute;
+    width: calc(var(--app-width) * 6.9 / 100);
+    left: calc(var(--app-width) * -6.9 / 100);
+    bottom: calc(var(--app-width) * -2.2 / 100);
+    z-index: 9;
+    height: calc(var(--app-width) * 19.5 / 100);
+}
     
         .bonus-img{
     transform: rotate(-47deg) skewX(7deg);
@@ -792,16 +792,16 @@ const wrapperRef =ref<HTMLElement | null>(null)
       50% { opacity: 0.5; }
     }
       
-      .ghost-img {
-        position: absolute;
-        bottom: calc(var(--app-width) * 0.3 / 100);;
-        left: calc(var(--app-width) * -4.7 / 100);;
-        width: calc(var(--app-width) * 8.9 / 100);;
-        transform: rotate(-52.5deg) skewX(-8deg);
-        z-index: 9;
-        height: calc(var(--app-width) * 10 / 100);;
-    
-      }
+    .ghost-img {
+      position: absolute;
+    bottom: calc(var(--app-width) * -0.1 / 100);
+    left: calc(var(--app-width) * -6.1 / 100);
+    transform: rotate(-51.5deg) skewX(-5deg);
+    transform: rotate(-18.5deg) skewX(31deg);
+    height: calc(var(--app-width) * 13.3 / 100);
+    width: calc(var(--app-width) * 8.4 / 100);
+    z-index: 9;
+}
     
       /* .horror{
         filter: brightness(0.3);

@@ -31,10 +31,10 @@ if(!contentRef.value )return
     Добро пожаловать<br/>в Альфа-Банк!
   </p>
   <p class="text">
-    Новая работа — тот ещё челлендж. Сейчас будем справляться со стрессом — убегай от страхов и копи бонусы. 
+    Новая работа — <br/> тот ещё челлендж. Сейчас будем справляться со стрессом — убегай от страхов и собирай монетки. 
   </p>
   <p class="text">
-    А по пути мы расскажем, как <span class="--bold">помогаем нашим стажёрам.</span>
+    А по пути мы расскажем, как помогаем нашим стажёрам.
   </p>
 </div>
 <div ref="btnRef" class="btn-wrapper">
@@ -82,7 +82,7 @@ if(!contentRef.value )return
     background-image: url("@/assets/images/modal-bg.svg");
     background-repeat: no-repeat;
     background-size: 100% 100%;
-    padding: calc(var(--app-width)* 11.28 / 100) calc(var(--app-width)* 3.58 / 100) calc(var(--app-width)* 7.28 / 100) calc(var(--app-width)* 6.38 / 100)
+    padding: calc(var(--app-width)* 11.28 / 100) calc(var(--app-width)* 0.58 / 100) calc(var(--app-width)* 7.28 / 100) calc(var(--app-width)* 6.38 / 100)
   }
 
   .btn-wrapper{
