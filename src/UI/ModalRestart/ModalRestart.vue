@@ -49,6 +49,20 @@ if(!wrapRef.value && !contantRef.value)return
                         Ничего страшного:) С поддержкой друллег у тебя точно все получится!
                     </p>
             </div>
+
+            <div v-if="stage === 'stage-3'" class="modal-block">
+                <div class="img-block">
+                    <img src="@/assets/images/modal-restart/3.svg" alt="" class="img">
+                </div>
+                    <p class="modal-title">
+                        Страх догнал тебя
+                    </p>
+                    <p class="text">
+                        Со всеми бывает! В Альфе мы всегда обсуждаем удобное время работы каждого стажёра, чтобы все успевали и учиться, и рабочие задачки выполнять.
+                    </p>
+            </div>
+
+
             <div class="btn-wrapper">
                  <ButtonAlfa @click="handleClick" text="Играть еще раз"/>
             </div>

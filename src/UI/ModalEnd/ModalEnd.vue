@@ -49,8 +49,20 @@ if(!wrapRef.value && !contantRef.value)return
                         В приложении <span class="--bold">Alfa People</span> есть контакты вообще всех, кто работает в Альфе. Пиши, звони, спрашивай. Все делали ошибки и знают, как тебе помочь.
                     </p>
             </div>
+            <div v-if="stage === 'stage-3'" class="modal-block">
+                <div class="img-block">
+                    <img src="@/assets/images/modal-end/3.svg" alt="" class="img">
+                </div>
+                    <p class="modal-title">
+                        Гибкий график и удалёнка
+                    </p>
+                    <p class="text">
+                        Работай 20 часов в неделю, откуда и когда удобно. Когда есть work-life balance, успевается всё:)
+                    </p>
+            </div>
+
             <div class="btn-wrapper">
-                 <ButtonAlfa @click="handleClick" text="ИГРАТЬ ДАЛЬШЕ"/>
+                 <ButtonAlfa @click="handleClick" :text="stage === 'stage-3' ? 'Закончить игру' : 'ИГРАТЬ ДАЛЬШЕ'"/>
             </div>
 
         </div>

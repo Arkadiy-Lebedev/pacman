@@ -2,7 +2,7 @@
 const modelValue = defineModel()
 
 defineProps<{
-  placeholder: string
+
   validate: boolean
 }>()
 </script>
@@ -13,7 +13,7 @@ defineProps<{
     :class="{ error: !validate }"
     type="email"
     v-model="modelValue"
-    :placeholder="placeholder"
+ 
   />
 </template>
 
@@ -23,21 +23,21 @@ defineProps<{
   padding-top: calc(var(--app-width)* 2.7 / 100);
 padding-bottom: calc(var(--app-width)* 2.7 / 100);
   font-weight: normal;
-  color: #0056D1;
-  font-size: clamp(14px, 2.6dvh, 19px);
-  border-radius: 6px;
+  color: var(--color-text);
+  font-size: clamp(14px, 2.1dvh, 16px);
+
   width: 100%;
-  border: 2px solid #E5E5E5
+background-color: #F2EFEF;
 }
 
-.input-email::placeholder {
+/* .input-email::placeholder {
   font-weight: normal;
   color: #E5E5E5;
   font-size: clamp(14px, 2.6dvh, 19px);
   font-weight: 300;
-}
+} */
 
 .error {
-  border: 2px solid rgb(236, 62, 62);
+  background-color: #ff9a9a;
 }
 </style>

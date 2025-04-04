@@ -7,7 +7,7 @@
     </div>
     <Header :isQuestion="gameStarted"/>
     <div v-if="isScrenSever" class="">
-      <Screensever page="stage-2" color="#EF3124"/>
+      <Screensever page="stage-3" color="#FE34C6"/>
     </div>
     <div v-if="!gameStarted && endAnimate" class="">
       <ModalStart @close="resetGame" stage="stage-2" />
@@ -96,7 +96,7 @@
       import Screensever from '@/UI/Screensever.vue';
      import { gsap } from 'gsap'
      import {useHelperStore} from '@/stores/helper';
-     
+
      const helperStore = useHelperStore()
      const bonus1 = ref(0);
      const bonus2 = ref(0);

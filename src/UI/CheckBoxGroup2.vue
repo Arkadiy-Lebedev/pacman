@@ -17,7 +17,8 @@ const modelValue = defineModel()
     </div>
 
     <label class="label-check" for="first_solution">
-      Я согласен(а) на <a target="_blank" class="label-check link" href="https://fut.ru/personal-data">обработку персональных данных</a> и получение информационных сообщений, а также с     <a target="_blank" class="label-check link" href="https://fut.ru/personal-data">правилами проведения акци</a>и.
+      Хочу <a target="_blank" class="label-check link" href="https://fut.ru/personal-data">подписаться на рассылку</a> с актуальными стажировками и карьерными возможностями
+   
 </label >
   </div>
 </template>

@@ -4,6 +4,8 @@ import Instruction from '../views/Instruction.vue'
 import Info from '../views/Info.vue'
 import Stage1 from '../views/Stage1.vue'
 import Stage2 from '../views/Stage2.vue'
+import Stage3 from '../views/Stage3.vue'
+import Finish from '../views/Finish.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -28,9 +30,19 @@ const router = createRouter({
       component: Instruction
     },
           {
+      path: '/stage-3',
+      name: 'stage-3',
+      component: Stage3
+    },
+          {
       path: '/info',
       name: 'info',
       component: Info
+    },
+              {
+      path: '/finish',
+      name: 'finish',
+      component: Finish
     },
   ]
 })

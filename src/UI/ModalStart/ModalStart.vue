@@ -48,6 +48,17 @@ if(!wrapRef.value && !contantRef.value)return
                         Страх шепчет это прямо на ушко. Побежали от него подальше — с поддержкой ошибаться нестрашно. Даже полезно, чтобы научиться новому.
                     </p>
             </div>
+            <div v-if="stage === 'stage-3'" class="modal-block">
+                <div class="img-block">
+                    <img src="@/assets/images/modal-start/3.svg" alt="" class="img">
+                </div>
+                    <p class="modal-title">
+                        «Не успею учиться и работать»
+                    </p>
+                    <p class="text">
+                        Страх, который за тобой погонится, ничего не знает про тайм-менеджмент. С ним не о чем разговаривать, убегай!
+                    </p>
+            </div>
             <div class="btn-wrapper">
                  <ButtonAlfa @click="handleClick" text="ПОБЕЖАЛИ"/>
             </div>
@@ -59,11 +70,15 @@ if(!wrapRef.value && !contantRef.value)return
 <style scoped>
 
 .stage-1 .img{
-width: calc(var(--app-height)*26.3 / 100);;
+    width: calc(var(--app-width)*46.8 / 100);
 }
 
 .stage-2 .img{
-width: calc(var(--app-height)*31.4 / 100);;
+    width: calc(var(--app-width)*55.8 / 100);
+}
+
+.stage-3 .img{
+    width: calc(var(--app-width)*52.1 / 100);
 }
 .modal-wrapper {
     position: absolute;
