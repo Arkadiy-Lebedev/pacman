@@ -51,5 +51,8 @@ const total = 5
   .live-img{
     width: calc(var(--app-width) * 6.9 / 100);
   }
+  .info  .live-img{
+    width: calc(var(--app-width) * 4.5 / 100);
+  }
 
   </style>

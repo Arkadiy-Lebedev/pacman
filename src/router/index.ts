@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Index from '../views/Index.vue'
+import Instruction from '../views/Instruction.vue'
+import Info from '../views/Info.vue'
 import Stage1 from '../views/Stage1.vue'
 import Stage2 from '../views/Stage2.vue'
 const router = createRouter({
@@ -20,7 +22,16 @@ const router = createRouter({
       name: 'stage-2',
       component: Stage2
     },
-  
+      {
+      path: '/instruction',
+      name: 'instruction',
+      component: Instruction
+    },
+          {
+      path: '/info',
+      name: 'info',
+      component: Info
+    },
   ]
 })
 

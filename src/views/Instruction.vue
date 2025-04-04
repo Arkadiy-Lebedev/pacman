@@ -9,13 +9,13 @@ const router = useRouter()
 
 const contentRef = ref<HTMLElement | null>(null)
 const btnRef = ref<HTMLElement | null>(null)
-  const menRef = ref<HTMLElement | null>(null)
+
 
 onMounted(() => {
 if(!contentRef.value )return
     gsap.from(contentRef.value, { duration: 0.5, autoAlpha: 0, delay:0.2, ease: 'power1.out' })
-    gsap.from(btnRef.value, { duration: 0.5, autoAlpha: 0, delay:1.7, ease: 'power1.out' })
-  gsap.from(menRef.value, { duration: 0.5, y:-50, autoAlpha: 0, delay:0.8, ease: 'power1.out' })
+    gsap.from(btnRef.value, { duration: 0.5, autoAlpha: 0, delay:0.5, ease: 'power1.out' })
+
 })
 </script>
 
@@ -23,22 +23,17 @@ if(!contentRef.value )return
   <div class="wrapper">
     <Header/>
     <div class="content">
-<div ref="menRef" class="img-block">
-  <img src="@/assets/images/men.svg" alt="" class="men">
-</div>
+
 <div ref="contentRef" class="main">
-  <p class="title">
-    Добро пожаловать<br/>в Альфа-Банк!
-  </p>
+
   <p class="text">
-    Новая работа — тот ещё челлендж. Сейчас будем справляться со стрессом — убегай от страхов и копи бонусы. 
+    Ты столкнёшься лицом к лицу с главными <span class="--bold">страхами:</span> чтобы победить их, пройди по всем точкам в лабиринте.
   </p>
-  <p class="text">
-    А по пути мы расскажем, как <span class="--bold">помогаем нашим стажёрам.</span>
-  </p>
+  <img src="@/assets/images/instruction/1.svg" alt="" class="instruction-img">
+ 
 </div>
 <div ref="btnRef" class="btn-wrapper">
-  <ButtonAlfa @click=" router.push({ name: 'instruction' })" text="Дальше"/>
+  <ButtonAlfa @click=" router.push({ name: 'info' })" text="Дальше"/>
 </div>
 
     </div>
@@ -63,26 +58,23 @@ if(!contentRef.value )return
     flex-direction: column;
   }
 
-  .men{
-    width: calc(var(--app-width)* 37.3 / 100);
 
-  }
+.instruction-img{
+  width: 100%;
+}
 
-  .title{
-    font-weight: 600;
-    font-size: calc(var(--app-width)* 5.35 / 100);
-    line-height: calc(var(--app-height)* 3.2 / 100);
-  }
 
-  .text{
-    margin-top: calc(var(--app-width)* 4.58 / 100);
-  }
 
   .main{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     background-image: url("@/assets/images/modal-bg.svg");
     background-repeat: no-repeat;
     background-size: 100% 100%;
-    padding: calc(var(--app-width)* 11.28 / 100) calc(var(--app-width)* 3.58 / 100) calc(var(--app-width)* 7.28 / 100) calc(var(--app-width)* 6.38 / 100)
+    padding: calc(var(--app-width)* 7.75 / 100) calc(var(--app-width)* 5.28 / 100) calc(var(--app-width)* 0 / 100) calc(var(--app-width)* 5.28  / 100);
+    height: calc(var(--app-width)* 122.7/ 100);
+
   }
 
   .btn-wrapper{
