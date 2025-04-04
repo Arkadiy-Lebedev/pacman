@@ -8,6 +8,9 @@ import Info3 from '@/components/Info3.vue';
 import { gsap } from 'gsap'
 import { useRouter } from 'vue-router'
 import { ref,onMounted } from 'vue';
+import {useHelperStore} from '@/stores/helper';
+
+const helperStore = useHelperStore()
 const router = useRouter()
 
 type TStep = 'step-1' | 'step-2' |'step-3'
@@ -45,6 +48,19 @@ tl.to(fingerRef.value, {
 });
 
 })
+
+const toGo = ()=>{
+  console.log(666)
+  if(!helperStore.isInstruction){
+    router.push({ name: 'stage-1' })
+    helperStore.isInstruction=true
+  } else {
+    console.log(8888)
+    helperStore.isShowRole=false
+  }
+}
+
+
     </script>
     
 <template>
@@ -96,7 +112,7 @@ tl.to(fingerRef.value, {
 </div>
 </div>
 <div ref="btnRef" class="btn-wrapper">
-  <ButtonAlfa @click=" router.push({ name: 'stage-1' })" text="Дальше"/>
+  <ButtonAlfa @click="toGo" text="Дальше"/>
 </div>
 </div>
 

@@ -1,10 +1,17 @@
 
 <script setup lang="ts">
 import question from './icons/question.vue';
+import {useHelperStore} from '@/stores/helper';
+
+const helperStore = useHelperStore()
 
 defineProps<{
     isQuestion?: boolean;
 }>()
+
+const toggleRole = () => {
+  helperStore.isShowRole = !helperStore.isShowRole
+}
     </script>
     
 <template>
@@ -13,7 +20,7 @@ defineProps<{
     <img src="@/assets/images/logo.svg" alt="" class="logo">
   </div>
   <div  v-if="isQuestion"  class="">
-<question/>
+<question @click="toggleRole"/>
   </div>
 </div>
   </template>

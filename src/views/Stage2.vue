@@ -1,6 +1,7 @@
 
 <template>
   <div  class="wrapper">
+    <Role v-if="helperStore.isShowRole"/>
     <div class="lives-box">
       <livesPucman :count='lives' stage="stage2"/>
     </div>
@@ -49,7 +50,7 @@
             >
             <!-- power-pellet -->
               <span v-if="pacman.position.x === x && pacman.position.y === y" class="pacman-icon">
-              <img class="pacmen" src="@/assets/images/pacmen/1.png" alt="">
+              <img class="pacmen" src="@/assets/images/pacmen/1.svg" alt="">
               </span>
   
                 <span v-if="cell === BONUS" class="bonus1-box">
@@ -88,12 +89,15 @@
      import Header from '@/components/Header.vue';
      import livesPucman from '@/components/livesPucman.vue';
      import Panel from '@/components/Panel.vue';
+     import Role from '@/components/Role.vue';
      import ModalRestart from '@/UI/ModalRestart/ModalRestart.vue';
      import ModalStart from '@/UI/ModalStart/ModalStart.vue';
      import ModalEnd from '@/UI/ModalEnd/ModalEnd.vue';
       import Screensever from '@/UI/Screensever.vue';
      import { gsap } from 'gsap'
-
+     import {useHelperStore} from '@/stores/helper';
+     
+     const helperStore = useHelperStore()
      const bonus1 = ref(0);
      const bonus2 = ref(0);
      const bonus3 = ref(0);
@@ -713,12 +717,13 @@ const wrapperRef =ref<HTMLElement | null>(null)
     }
     .pacmen{
       transform: rotate(-41deg) skewX(7deg);
-    position: absolute;
-    width: calc(var(--app-width) * 6.9 / 100);
-    left: calc(var(--app-width) * -6.9 / 100);
-    bottom: calc(var(--app-width) * -2.2 / 100);
+      position: absolute;
+    width: calc(var(--app-width)* 8.4 / 100);
+    left: calc(var(--app-width)* -7.8 / 100);
+    bottom: calc(var(--app-width)* -0.1 / 100);
     z-index: 9;
-    height: calc(var(--app-width) * 19.5 / 100);
+    height: calc(var(--app-width)* 14.3 / 100);
+    transform: skewX(30deg) rotate(-30deg);
 }
     
         .bonus-img{
@@ -798,9 +803,10 @@ const wrapperRef =ref<HTMLElement | null>(null)
     left: calc(var(--app-width) * -6.1 / 100);
  
     transform: rotate(-44.5deg) skewX(5deg);
-    height: calc(var(--app-width) * 12.6 / 100);
-    width: calc(var(--app-width) * 8 / 100);
+    height: calc(var(--app-width)* 11.6 / 100);
+    width: calc(var(--app-width)* 7.4 / 100);
     z-index: 9;
+    transform: skewX(30deg) rotate(-30deg)
 }
     
       /* .horror{

@@ -1,6 +1,7 @@
 
 <template>
   <div  class="wrapper">
+    <Role v-if="helperStore.isShowRole"/>
     <Header :isQuestion="gameStarted"/>
     <div class="lives-box">
       <livesPucman :count='lives' stage="stage1"/>
@@ -57,7 +58,7 @@
             >
             <!-- power-pellet -->
               <span v-if="pacman.position.x === x && pacman.position.y === y" class="pacman-icon">
-              <img class="pacmen" src="@/assets/images/pacmen/1.png" alt="">
+              <img class="pacmen" src="@/assets/images/pacmen/1.svg" alt="">
               </span>
   
                 <span v-if="cell === BONUS" class="bonus1-box">
@@ -99,8 +100,12 @@
      import ModalStart from '@/UI/ModalStart/ModalStart.vue';
      import ModalRestart from '@/UI/ModalRestart/ModalRestart.vue';
      import ModalEnd from '@/UI/ModalEnd/ModalEnd.vue';
+     import Role from '@/components/Role.vue';
       import Screensever from '@/UI/Screensever.vue';
      import { gsap } from 'gsap'
+     import {useHelperStore} from '@/stores/helper';
+
+const helperStore = useHelperStore()
 
      const bonus1 = ref(0);
      const bonus2 = ref(0);
@@ -710,7 +715,7 @@ const wrapperRef =ref<HTMLElement | null>(null)
   .game-board {
      
       transform: rotate(30deg) skewX(-30deg);
-      width: calc(var(--app-width)* 72.8 / 100);
+      width: calc(var(--app-width)* 75.1 / 100);
       height: calc(var(--app-width)* 55.6 / 100);
       transform-origin: top center;
       position: absolute;
@@ -719,13 +724,14 @@ const wrapperRef =ref<HTMLElement | null>(null)
       margin-left: calc(var(--app-width)* -80.2 / 100);
   }
   .pacmen{
-    transform: rotate(-41deg) skewX(7deg);
+    transform: rotate(-43deg) skewX(7deg);
     position: absolute;
-    width: calc(var(--app-width) * 6.9 / 100);
-    left: calc(var(--app-width) * -6.9 / 100);
-    bottom: calc(var(--app-width) * -2.2 / 100);
+    width: calc(var(--app-width)* 8.4 / 100);
+    left: calc(var(--app-width)* -7.8 / 100);
+    bottom: calc(var(--app-width)* -0.1 / 100);
     z-index: 9;
-    height: calc(var(--app-width) * 19.5 / 100);
+    height: calc(var(--app-width)* 14.3 / 100);
+    transform: skewX(30deg) rotate(-30deg);
 }
   
       .bonus-img{
@@ -802,13 +808,15 @@ const wrapperRef =ref<HTMLElement | null>(null)
 
   .ghost-img {
     position: absolute;
-    bottom: calc(var(--app-width) * -0.1 / 100);
-    left: calc(var(--app-width) * -5.7 / 100);
-    transform: rotate(-51.5deg) skewX(-5deg);
-    transform: rotate(-36.5deg) skewX(14deg);
-    height: calc(var(--app-width) * 11.6 / 100);
-    width: calc(var(--app-width) * 8.8 / 100);
+    bottom: calc(var(--app-width)* -0.4 / 100);
+    left: calc(var(--app-width)* -6.1 / 100);
+    /* transform: rotate(-51.5deg) skewX(-5deg); */
+    transform:rotate(-34.5deg) skewX(16deg);
+    height: calc(var(--app-width)* 12 / 100);
+    width: calc(var(--app-width)* 7.6 / 100);
     z-index: 9;
+
+    transform: skewX(30deg) rotate(-30deg)
 
 }
   

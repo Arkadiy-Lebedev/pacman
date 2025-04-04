@@ -54,7 +54,7 @@ width: 100%;
 
 @media (min-width: 768px) {
   .btn:not(.disabled):hover{
-background-color: #092348;
+filter: brightness(0.9);
   }
 
   .outline.btn:hover{
