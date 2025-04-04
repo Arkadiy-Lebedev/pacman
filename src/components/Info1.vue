@@ -693,13 +693,13 @@ gap: 5px;
 
 }
 .pacmen{
-  transform: rotate(-41deg) skewX(7deg);
+    transform: rotate(-41deg) skewX(7deg);
     position: absolute;
-    width: calc(var(--app-width) * 5.4 / 100);
-    left: calc(var(--app-width) * -5.9 / 100);
-    bottom: calc(var(--app-width) * -1.5 / 100);
+    width: calc(var(--app-width) * 6.9 / 100);
+    left: calc(var(--app-width) * -6.9 / 100);
+    bottom: calc(var(--app-width) * -2.2 / 100);
     z-index: 9;
-    height: calc(var(--app-width) * 15.3 / 100);
+    height: calc(var(--app-width) * 19.5 / 100);
 }
 
 .bonus-img{
@@ -774,13 +774,14 @@ animation: blink 0.5s infinite;
 }
 
 .ghost-img {
-  position: absolute;
-    bottom: calc(var(--app-width) * -0.4 / 100);
-    left: calc(var(--app-width) * -5.3 / 100);
-    width: calc(var(--app-width) * 7.8 / 100);
-    transform: rotate(-51.5deg) skewX(-4deg);
+    position: absolute;
+    bottom: calc(var(--app-width) * -0.1 / 100);
+    left: calc(var(--app-width) * -5.7 / 100);
+    transform: rotate(-51.5deg) skewX(-5deg);
+    transform: rotate(-36.5deg) skewX(14deg);
+    height: calc(var(--app-width) * 11.6 / 100);
+    width: calc(var(--app-width) * 8.8 / 100);
     z-index: 9;
-    height: calc(var(--app-width) * 11.5 / 100);
 
 }
 
