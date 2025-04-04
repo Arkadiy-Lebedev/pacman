@@ -776,13 +776,13 @@ animation: blink 0.5s infinite;
 }
 
 .ghost-img {
-    position: absolute;
+  position: absolute;
     bottom: calc(var(--app-width) * -0.1 / 100);
-    left: calc(var(--app-width) * -5.7 / 100);
-    transform: rotate(-51.5deg) skewX(-5deg);
-    transform: rotate(-36.5deg) skewX(14deg);
-    height: calc(var(--app-width) * 11.6 / 100);
-    width: calc(var(--app-width) * 8.8 / 100);
+    left: calc(var(--app-width) * -6.1 / 100);
+    /* transform: rotate(-51.5deg) skewX(-5deg); */
+    transform: rotate(-44.5deg) skewX(5deg);
+    height: calc(var(--app-width) * 12.6 / 100);
+    width: calc(var(--app-width) * 8 / 100);
     z-index: 9;
 
 }

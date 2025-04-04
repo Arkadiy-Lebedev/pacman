@@ -796,10 +796,10 @@ const wrapperRef =ref<HTMLElement | null>(null)
       position: absolute;
     bottom: calc(var(--app-width) * -0.1 / 100);
     left: calc(var(--app-width) * -6.1 / 100);
-    transform: rotate(-51.5deg) skewX(-5deg);
-    transform: rotate(-18.5deg) skewX(31deg);
-    height: calc(var(--app-width) * 13.3 / 100);
-    width: calc(var(--app-width) * 8.4 / 100);
+ 
+    transform: rotate(-44.5deg) skewX(5deg);
+    height: calc(var(--app-width) * 12.6 / 100);
+    width: calc(var(--app-width) * 8 / 100);
     z-index: 9;
 }
     
