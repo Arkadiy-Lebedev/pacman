@@ -6,6 +6,7 @@ import Stage1 from '../views/Stage1.vue'
 import Stage2 from '../views/Stage2.vue'
 import Stage3 from '../views/Stage3.vue'
 import Finish from '../views/Finish.vue'
+import Tg from '../views/Tg.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -43,6 +44,11 @@ const router = createRouter({
       path: '/finish',
       name: 'finish',
       component: Finish
+    },
+    {
+      path: '/tg',
+      name: 'tg',
+      component: Tg
     },
   ]
 })

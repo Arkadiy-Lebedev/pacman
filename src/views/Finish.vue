@@ -35,7 +35,7 @@ isPending.value = true
 // const record = await ftClients.findRecord('email', email.value)
 
 isPending.value = false
-
+router.push({name:'tg'})
 }
 
 onMounted(() => {
