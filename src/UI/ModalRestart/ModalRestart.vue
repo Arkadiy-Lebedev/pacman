@@ -28,7 +28,7 @@ if(!wrapRef.value && !contantRef.value)return
         <div ref="contantRef" class="modal-content">
             <div v-if="stage === 'stage-1'" class="modal-block">
                 <div class="img-block">
-                    <img src="@/assets/images/modal-restart/1.svg" alt="" class="img">
+                    <img src="@/assets/images/modal-restart/1.png" alt="" class="img">
                 </div>
                     <p class="modal-title">
                         Страх догнал тебя
@@ -40,7 +40,7 @@ if(!wrapRef.value && !contantRef.value)return
 
             <div v-if="stage === 'stage-2'" class="modal-block">
                 <div class="img-block">
-                    <img src="@/assets/images/modal-restart/2.svg" alt="" class="img">
+                    <img src="@/assets/images/modal-restart/2.png" alt="" class="img">
                 </div>
                     <p class="modal-title">
                         Страх догнал тебя
@@ -52,7 +52,7 @@ if(!wrapRef.value && !contantRef.value)return
 
             <div v-if="stage === 'stage-3'" class="modal-block">
                 <div class="img-block">
-                    <img src="@/assets/images/modal-restart/3.svg" alt="" class="img">
+                    <img src="@/assets/images/modal-restart/3.png" alt="" class="img">
                 </div>
                     <p class="modal-title">
                         Страх догнал тебя

@@ -1,8 +1,5 @@
     
-<template> 
-<div class="lives-box info">
-  <livesPucman :count='lives' stage="stage1"/>
-</div>
+<template>
         <div ref="wrapperRef" class="wrapper-game">
           <img class="house" src="@/assets/images/pacmen/house2.png" alt="">
       <div class="pacman-game">
@@ -139,7 +136,7 @@ return Math.max(0, Math.ceil((invincibilityEndTime.value - Date.now()) / 1000));
 
 // Пакман
 const pacman = reactive({
-position: { x: 5, y: 8 },  
+position: { x: 5, y: 7 },  
 direction: { x: 0, y: 0 },
 nextDirection: { x: 0, y: 0 }
 });
@@ -222,9 +219,9 @@ if (board.value[y][x] !== WALL &&
 
 board.value[9][4] = BONUS;
 board.value[9][1] = BONUS;
-board.value[1][1] = BONUS2;
+board.value[1][3] = BONUS2;
 board.value[5][7] = BONUS2;
-board.value[1][10] = BONUS3;
+board.value[5][10] = BONUS3;
 board.value[10][8] = BONUS3;
 
 
@@ -297,7 +294,7 @@ gameOver.value = false;
 // isInvincible.value = false;
 // ghostSpeedMultiplier.value = 1;
 
-pacman.position = { x: 5, y: 8 };
+pacman.position = { x: 5, y: 7 };
 pacman.direction = { x: 3, y: 0 };
 pacman.nextDirection = { x: 0, y: 0 };
 
@@ -358,7 +355,7 @@ if (isInvincible.value) {
 }
 };
 
-let refreshPucman = 0
+
 const handlePacmanDeath = () => {
 lives.value--;
 console.log(lives.value);
@@ -368,16 +365,8 @@ gameOver.value = true;
 
 } else {
 // Респавн персонажей
-pacman.position =  { x: 5, y: 8 },  
+pacman.position = { x: 3, y: 1 };
 pacman.direction = { x: 0, y: 0 };
-pacman.nextDirection = { x: 0, y: 0 };
-refreshPucman++
-if(refreshPucman===2)return
-  pacman.nextDirection = { x: 1, y: 0 };
-  setTimeout(()=>{
-    pacman.nextDirection = { x: 0, y: -1 };
-  },1000)
-
 
 // ghosts.value = [
 // { position: { x: 13, y: 13 }, direction: { x: -1, y: 0 }, color: 'red', speed: 200, monster: monster1 },
@@ -640,20 +629,20 @@ window.removeEventListener('touchend', handleTouchEnd);
 
 setTimeout(()=>{
   startGame()
-  pacman.nextDirection = { x: 1, y: 0 };
+  pacman.nextDirection = { x: 0, y: 1 };
+  
   setTimeout(()=>{
-    pacman.nextDirection = { x: 0, y: -1 };
-  },1000)
-},1500)
+    pacman.nextDirection = { x: 1, y: 0 };
+  },100)
+},2000)
 </script>
 
 <style scoped>
-  .lives-box{
+.lives-box{
 position: absolute;
-top: calc(var(--app-width) * 1.2 / 100);
-left: calc(var(--app-width) * 0 / 100);
+top:  calc(var(--app-width) * 28 / 100);
+left: calc(var(--app-width) * 6.7 / 100);
 }
-
 
 .wrapper-game{
 
@@ -705,7 +694,7 @@ gap: 5px;
 
 }
 .pacmen{
-    transform: rotate(-41deg) skewX(7deg);
+    transform: rotate(-43deg) skewX(7deg);
     position: absolute;
     width: calc(var(--app-width)* 8.4 / 100);
     left: calc(var(--app-width)* -7.8 / 100);
@@ -714,6 +703,7 @@ gap: 5px;
     height: calc(var(--app-width)* 14.3 / 100);
     transform: skewX(30deg) rotate(-30deg);
 }
+
 .bonus-img{
 transform: rotate(-47deg) skewX(7deg);
 position: absolute;
@@ -784,17 +774,17 @@ animation: blink 0.5s infinite;
 0%, 100% { opacity: 1; }
 50% { opacity: 0.5; }
 }
+
 .ghost-img {
   position: absolute;
-    bottom: calc(var(--app-width) * -0.1 / 100);
-    left: calc(var(--app-width) * -6.1 / 100);
+    bottom: calc(var(--app-width)* -0.4 / 100);
+    left: calc(var(--app-width)* -6.1 / 100);
     /* transform: rotate(-51.5deg) skewX(-5deg); */
-    transform: rotate(-44.5deg) skewX(5deg);
-    height: calc(var(--app-width) * 12.6 / 100);
-    width: calc(var(--app-width) * 8 / 100);
-    transform: skewX(30deg) rotate(-30deg);
+    transform:rotate(-34.5deg) skewX(16deg);
+    height: calc(var(--app-width)* 12 / 100);
+    width: calc(var(--app-width)* 7.6 / 100);
     z-index: 9;
-
+    transform: skewX(30deg) rotate(-30deg)
 }
 
 /* .horror{

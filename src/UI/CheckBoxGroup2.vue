@@ -9,15 +9,15 @@ const modelValue = defineModel()
       v-model="modelValue"
       class="check"
       type="checkbox"
-      id="first_solution"
+      id="first_solution2"
       name="solution"
       checked
       required
     />
     </div>
 
-    <label class="label-check" for="first_solution">
-      Хочу <a target="_blank" class="label-check link" href="https://fut.ru/personal-data">подписаться на рассылку</a> с актуальными стажировками и карьерными возможностями
+    <label class="label-check" for="first_solution2">
+      Хочу <a target="_blank" class="label-check link" href="https://fut.ru/adv_messages_agreement">подписаться на рассылку</a> с актуальными стажировками и карьерными возможностями
    
 </label >
   </div>

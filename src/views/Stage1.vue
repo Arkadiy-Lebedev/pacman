@@ -10,7 +10,7 @@
       <Screensever page="stage-2" color="#EF3124"/>
     </div>
 
-    <div v-if="!gameStarted && endAnimate" class="">
+    <div v-if="!gameStarted && endAnimate && !finishGame" class="">
       <ModalStart @close="resetGame" stage="stage-1" />
     </div>
       <div v-if="finishGame" class="">
@@ -146,8 +146,8 @@ const wrapperRef =ref<HTMLElement | null>(null)
     const invincibilityEndTime = ref(0);
     const ghostSpeedMultiplier = ref(1);
 
-    watch( score, (newScoreDot) => {    
-      if(countDot.value == score.value){
+    watch( score, (newScoreDot) => {   
+      if(countDot.value + 6 == score.value){
         // alert('Вы победили!')
         finishGame.value = true
         gameOver.value = true
@@ -406,13 +406,15 @@ const wrapperRef =ref<HTMLElement | null>(null)
       // Респавн персонажей
       pacman.position = { x: 3, y: 1 };
       pacman.direction = { x: 0, y: 0 };
-      
-      // ghosts.value = [
-      // { position: { x: 13, y: 13 }, direction: { x: -1, y: 0 }, color: 'red', speed: 200, monster: monster1 },
-      // { position: { x: 3, y: 13 }, direction: { x: 1, y: 0 }, color: 'pink', speed: 200, monster: monster1 },
-      // { position: { x: 7, y: 8 }, direction: { x: 0, y: 1 }, color: 'cyan', speed: 200, monster: monster1 },
-      // { position: { x: 9, y: 6 }, direction: { x: 0, y: 1 }, color: 'green', speed: 200, monster: monster1 },
-      // ];
+      pacman.nextDirection= { x: 0, y: 0 }
+
+    
+      ghosts.value = [
+      { position: { x: 13, y: 13 }, direction: { x: -1, y: 0 }, color: 'red', speed: 200, monster: monster1 },
+      { position: { x: 3, y: 13 }, direction: { x: 1, y: 0 }, color: 'pink', speed: 200, monster: monster1 },
+      { position: { x: 7, y: 8 }, direction: { x: 0, y: 1 }, color: 'cyan', speed: 200, monster: monster1 },
+      { position: { x: 9, y: 6 }, direction: { x: 0, y: 1 }, color: 'green', speed: 200, monster: monster1 },
+      ];
     }
   };
   
@@ -445,16 +447,19 @@ const wrapperRef =ref<HTMLElement | null>(null)
           board.value[newY][newX] = EMPTY;
         } else if (board.value[newY][newX] === BONUS) {
         bonus1.value++
+        score.value += 1;
           board.value[newY][newX] = EMPTY;
           activateInvincibility();
         }
         else if (board.value[newY][newX] === BONUS2) {
         bonus2.value++
+        score.value += 1;
           board.value[newY][newX] = EMPTY;
           activateInvincibility();
         }
         else if (board.value[newY][newX] === BONUS3) {
         bonus3.value++
+        score.value += 1;
           board.value[newY][newX] = EMPTY;
           activateInvincibility();
         }
@@ -579,12 +584,14 @@ const wrapperRef =ref<HTMLElement | null>(null)
   
   // Обработка начала касания
   const handleTouchStart = (e) => {
+
     touchStartX.value = e.touches[0].clientX;
     touchStartY.value = e.touches[0].clientY;
   };
   
   // Обработка окончания касания
   const handleTouchEnd = (e) => {
+   
     touchEndX.value = e.changedTouches[0].clientX;
     touchEndY.value = e.changedTouches[0].clientY;
     handleSwipe();
@@ -720,7 +727,7 @@ const wrapperRef =ref<HTMLElement | null>(null)
       transform-origin: top center;
       position: absolute;
       top: calc(var(--app-width)* 14 / 100);
-      left: 122%;
+      left:  121.2%;
       margin-left: calc(var(--app-width)* -80.2 / 100);
   }
   .pacmen{

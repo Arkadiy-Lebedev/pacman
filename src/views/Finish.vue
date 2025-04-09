@@ -11,8 +11,8 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 
 const contentRef = ref<HTMLElement | null>(null)
-const check1 =ref(true)
-const check2 =ref(true)
+const check1 =ref(false)
+const check2 =ref(false)
 const validate = ref(true)
 const email = ref<string | null>(null)
   const isPending = ref(false)

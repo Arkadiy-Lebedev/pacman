@@ -17,7 +17,7 @@ const modelValue = defineModel()
     </div>
 
     <label class="label-check" for="first_solution">
-      Я согласен(а) на <a target="_blank" class="label-check link" href="https://fut.ru/personal-data">обработку персональных данных</a> и получение информационных сообщений, а также с     <a target="_blank" class="label-check link" href="https://fut.ru/personal-data">правилами проведения акци</a>и.
+      Я согласен(а) на <a target="_blank" class="label-check link" href="https://fut.ru/personal-data">обработку персональных данных</a> и получение информационных сообщений, а также с     <a target="_blank" class="label-check link" href="https://run-away-from-fear-alfa.ru.fut.ru/agreement.pdf">правилами проведения акции</a>.
 </label >
   </div>
 </template>

@@ -2,35 +2,27 @@
 <template>
   <div  class="wrapper">
     <Role v-if="helperStore.isShowRole"/>
-    <Header :isQuestion="gameStarted"/>
     <div class="lives-box">
       <livesPucman :count='lives' stage="stage2"/>
     </div>
+    <Header :isQuestion="gameStarted"/>
     <div v-if="isScrenSever" class="">
-      <Screensever page="stage-2" color="#FE34C6"/>
+      <Screensever page="stage-3" color="#FE34C6"/>
     </div>
-
-    <div v-if="!gameStarted && endAnimate && !finishGame" class="">
+    <div v-if="!gameStarted && endAnimate" class="">
       <ModalStart @close="resetGame" stage="stage-2" />
     </div>
       <div v-if="finishGame" class="">
       <ModalEnd @close="goNext" stage="stage-2" />
     </div>
-         <div v-if="gameOver && !finishGame" class="">
+    <div v-if="gameOver && !finishGame" class="">
       <ModalRestart @close="resetGame" stage="stage-2" />
     </div>
 <div v-if="gameStarted && !gameOver">
     <Panel :bonus1="bonus1" :bonus2="bonus2" :bonus3="bonus3" stage="stage2"/>
 </div>
-
-        <!-- <div class="game-info">
-          <div>Жизни: {{ lives }}</div>
-          <div>Очки: {{ score }}</div>
-
-          <button @click="resetGame">Сбросить игру</button>
-        </div> -->
         <div ref="wrapperRef" class="wrapper-game">
-              <img class="house" src="@/assets/images/pacmen/house2.png" alt="">
+          <img class="house" src="@/assets/images/pacmen/house2.png" alt="">
       <div class="pacman-game">
         <div class="game-board">
           <div 
@@ -62,13 +54,13 @@
               </span>
   
                 <span v-if="cell === BONUS" class="bonus1-box">
-              <img class="bonus-img" src="@/assets/images/pacmen/level1/bonus1.png" alt="">
+              <img class="bonus-img" src="@/assets/images/pacmen/level2/1.png" alt="">
               </span>
                    <span v-if="cell === BONUS2" class="bonus1-box">
-              <img class="bonus-img" src="@/assets/images/pacmen/level1/bonus2.png" alt="">
+              <img class="bonus-img" src="@/assets/images/pacmen/level2/2.png" alt="">
               </span>
              <span v-if="cell === BONUS3" class="bonus1-box">
-              <img class="bonus-img" src="@/assets/images/pacmen/level1/bonus3.png" alt="">
+              <img class="bonus-img" src="@/assets/images/pacmen/level2/3.png" alt="">
               </span>
   
               <span 
@@ -91,22 +83,21 @@
     <script setup lang="ts">
         //@ts-nocheck
     import { ref, reactive, onMounted, onBeforeUnmount, computed, watch } from 'vue';
-   import monster1 from '@/assets/images/pacmen/m1.svg'
+   import monster1 from '@/assets/images/pacmen/m2.svg'
     import monster2 from '@/assets/images/pacmen/m2.svg'
-     import monster3 from '@/assets/images/pacmen/m1-horror.svg'
+     import monster3 from '@/assets/images/pacmen/m2-horror.svg'
      import Header from '@/components/Header.vue';
-     import Panel from '@/components/Panel.vue';
      import livesPucman from '@/components/livesPucman.vue';
-     import ModalStart from '@/UI/ModalStart/ModalStart.vue';
-     import ModalRestart from '@/UI/ModalRestart/ModalRestart.vue';
-     import ModalEnd from '@/UI/ModalEnd/ModalEnd.vue';
+     import Panel from '@/components/Panel.vue';
      import Role from '@/components/Role.vue';
+     import ModalRestart from '@/UI/ModalRestart/ModalRestart.vue';
+     import ModalStart from '@/UI/ModalStart/ModalStart.vue';
+     import ModalEnd from '@/UI/ModalEnd/ModalEnd.vue';
       import Screensever from '@/UI/Screensever.vue';
      import { gsap } from 'gsap'
      import {useHelperStore} from '@/stores/helper';
 
-const helperStore = useHelperStore()
-
+     const helperStore = useHelperStore()
      const bonus1 = ref(0);
      const bonus2 = ref(0);
      const bonus3 = ref(0);
@@ -146,10 +137,12 @@ const wrapperRef =ref<HTMLElement | null>(null)
     const invincibilityEndTime = ref(0);
     const ghostSpeedMultiplier = ref(1);
 
-    watch( score, (newScoreDot) => {   
+    watch( score, (newScoreDot) => {    
+
       if(countDot.value + 6 == score.value){
+        console.log(score.value)
         // alert('Вы победили!')
-        finishGame.value = true
+        finishGame.value = true;
         gameOver.value = true
         gameStarted.value = false
       }
@@ -173,10 +166,10 @@ const wrapperRef =ref<HTMLElement | null>(null)
     
     // Привидения
     const ghosts = ref([
-      { position: { x: 5, y: 4 }, direction: { x: -1, y: 0 }, color: 'red', speed: 200, monster: monster1 },
-      { position: { x: 6, y: 8 }, direction: { x: 1, y: 0 }, color: 'pink', speed: 200, monster: monster1 },
-      { position: { x:10, y: 3 }, direction: { x: 0, y: 1 }, color: 'cyan', speed: 200, monster: monster1 },
-      { position: { x: 1, y: 10 }, direction: { x: 0, y: 1 }, color: 'green', speed: 200, monster: monster1 },
+      { position: { x: 13, y: 13 }, direction: { x: -1, y: 0 }, color: 'red', speed: 200, monster: monster1 },
+      { position: { x: 3, y: 13 }, direction: { x: 1, y: 0 }, color: 'pink', speed: 200, monster: monster1 },
+      { position: { x: 7, y: 8 }, direction: { x: 0, y: 1 }, color: 'cyan', speed: 200, monster: monster1 },
+      { position: { x: 9, y: 5 }, direction: { x: 0, y: 1 }, color: 'green', speed: 200, monster: monster1 },
     ]);
   
     const isOuterWall = (x, y) => {
@@ -335,10 +328,10 @@ const wrapperRef =ref<HTMLElement | null>(null)
       pacman.nextDirection = { x: 0, y: 0 };
       
       ghosts.value = [
-      { position: { x: 5, y: 4 }, direction: { x: -1, y: 0 }, color: 'red', speed: 200, monster: monster1 },
-      { position: { x: 6, y: 8 }, direction: { x: 1, y: 0 }, color: 'pink', speed: 200, monster: monster1 },
-      { position: { x:10, y: 3 }, direction: { x: 0, y: 1 }, color: 'cyan', speed: 200, monster: monster1 },
-      { position: { x: 1, y: 10 }, direction: { x: 0, y: 1 }, color: 'green', speed: 200, monster: monster1 },
+      { position: { x: 13, y: 13 }, direction: { x: -1, y: 0 }, color: 'red', speed: 200, monster: monster1 },
+      { position: { x: 3, y: 13 }, direction: { x: 1, y: 0 }, color: 'pink', speed: 200, monster: monster1 },
+      { position: { x: 7, y: 8 }, direction: { x: 0, y: 1 }, color: 'cyan', speed: 200, monster: monster1 },
+      { position: { x: 9, y: 5 }, direction: { x: 0, y: 1 }, color: 'green', speed: 200, monster: monster1 },
   ];
       
       initBoard();
@@ -394,7 +387,7 @@ const wrapperRef =ref<HTMLElement | null>(null)
     }
   };
   
-  
+
   const handlePacmanDeath = () => {
     lives.value--;
     if (lives.value <= 0) {
@@ -409,10 +402,10 @@ const wrapperRef =ref<HTMLElement | null>(null)
 
     
       ghosts.value = [
-      { position: { x: 5, y: 4 }, direction: { x: -1, y: 0 }, color: 'red', speed: 200, monster: monster1 },
-      { position: { x: 6, y: 8 }, direction: { x: 1, y: 0 }, color: 'pink', speed: 200, monster: monster1 },
-      { position: { x:10, y: 3 }, direction: { x: 0, y: 1 }, color: 'cyan', speed: 200, monster: monster1 },
-      { position: { x: 1, y: 10 }, direction: { x: 0, y: 1 }, color: 'green', speed: 200, monster: monster1 },
+      { position: { x: 13, y: 13 }, direction: { x: -1, y: 0 }, color: 'red', speed: 200, monster: monster1 },
+      { position: { x: 3, y: 13 }, direction: { x: 1, y: 0 }, color: 'pink', speed: 200, monster: monster1 },
+      { position: { x: 7, y: 8 }, direction: { x: 0, y: 1 }, color: 'cyan', speed: 200, monster: monster1 },
+      { position: { x: 9, y: 5 }, direction: { x: 0, y: 1 }, color: 'green', speed: 200, monster: monster1 },
       ];
     }
   };
@@ -445,20 +438,20 @@ const wrapperRef =ref<HTMLElement | null>(null)
           // score.value += 1;
           board.value[newY][newX] = EMPTY;
         } else if (board.value[newY][newX] === BONUS) {
+          score.value += 1;
         bonus1.value++
-        score.value += 1;
           board.value[newY][newX] = EMPTY;
           activateInvincibility();
         }
         else if (board.value[newY][newX] === BONUS2) {
+          score.value += 1;
         bonus2.value++
-        score.value += 1;
           board.value[newY][newX] = EMPTY;
           activateInvincibility();
         }
         else if (board.value[newY][newX] === BONUS3) {
+          score.value += 1;
         bonus3.value++
-        score.value += 1;
           board.value[newY][newX] = EMPTY;
           activateInvincibility();
         }
@@ -583,14 +576,12 @@ const wrapperRef =ref<HTMLElement | null>(null)
   
   // Обработка начала касания
   const handleTouchStart = (e) => {
-
     touchStartX.value = e.touches[0].clientX;
     touchStartY.value = e.touches[0].clientY;
   };
   
   // Обработка окончания касания
   const handleTouchEnd = (e) => {
-
     touchEndX.value = e.changedTouches[0].clientX;
     touchEndY.value = e.changedTouches[0].clientY;
     handleSwipe();

@@ -28,19 +28,19 @@ if(!wrapRef.value && !contantRef.value)return
         <div ref="contantRef" class="modal-content">
             <div v-if="stage === 'stage-1'" class="modal-block">
                 <div class="img-block">
-                    <img src="@/assets/images/modal-end/1.svg" alt="" class="img">
+                    <img src="@/assets/images/modal-end/1.png" alt="" class="img">
                 </div>
                     <p class="modal-title">
                         Опыт не появится, если бояться
                     </p>
                     <p class="text">
-                        В Альфе восхищаются теми, кто горит прокачкой скиллов — это можно сделать <span class="--bold">на стажировке <br/> «I Choose Alfa»</span> и на  <span class="--bold">курсах Alfa Campus</span>. Рядом всегда будет опытный коллега.
+                        В Альфе восхищаются теми, кто горит прокачкой скиллов — это можно сделать <span class="--bold">на стажировке <br/> «I Choose Alfa»</span> и на <span class="--bold">курсах Alfa Campus</span>. Рядом всегда будет опытный коллега.
                     </p>
             </div>
 
             <div v-if="stage === 'stage-2'" class="modal-block">
                 <div class="img-block">
-                    <img src="@/assets/images/modal-end/2.svg" alt="" class="img">
+                    <img src="@/assets/images/modal-end/2.png" alt="" class="img">
                 </div>
                     <p class="modal-title">
                         Друллеги на связи
@@ -51,7 +51,7 @@ if(!wrapRef.value && !contantRef.value)return
             </div>
             <div v-if="stage === 'stage-3'" class="modal-block">
                 <div class="img-block">
-                    <img src="@/assets/images/modal-end/3.svg" alt="" class="img">
+                    <img src="@/assets/images/modal-end/3.png" alt="" class="img">
                 </div>
                     <p class="modal-title">
                         Гибкий график и удалёнка

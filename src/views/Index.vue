@@ -10,17 +10,33 @@ const router = useRouter()
 const contentRef = ref<HTMLElement | null>(null)
 const btnRef = ref<HTMLElement | null>(null)
   const menRef = ref<HTMLElement | null>(null)
+    const isModal = ref(false)
 
-onMounted(() => {
+
+onMounted(async() => {
 if(!contentRef.value )return
     gsap.from(contentRef.value, { duration: 0.5, autoAlpha: 0, delay:0.2, ease: 'power1.out' })
     gsap.from(btnRef.value, { duration: 0.5, autoAlpha: 0, delay:1.7, ease: 'power1.out' })
   gsap.from(menRef.value, { duration: 0.5, y:-50, autoAlpha: 0, delay:0.8, ease: 'power1.out' })
+
 })
+
+
 </script>
 
 <template>
   <div class="wrapper">
+    <div v-if="isModal" class="wrapper-modal">
+      <div class="modal-content">
+        <div class="modal-block">
+          <p class="text"> В Telegram игра не работает:( Лучше переходи в браузер!</p>
+        </div>
+
+<div ref="btnRef" class="btn-wrapper">
+  <ButtonAlfa @click=" router.push({ name: 'instruction' })" text="ХОРОШО"/>
+</div>
+      </div>
+    </div>
     <Header/>
     <div class="content">
 <div ref="menRef" class="img-block">
@@ -38,7 +54,7 @@ if(!contentRef.value )return
   </p>
 </div>
 <div ref="btnRef" class="btn-wrapper">
-  <ButtonAlfa @click=" router.push({ name: 'instruction' })" text="Дальше"/>
+  <ButtonAlfa @click=" isModal=true" text="Дальше"/>
 </div>
 
     </div>
@@ -48,6 +64,34 @@ if(!contentRef.value )return
   
    
     <style scoped>
+.wrapper-modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+   background: rgba(0, 0, 0, 0.5);/* Полупрозрачный фон */
+  backdrop-filter: blur(10px); /* Размытие фона */
+  -webkit-backdrop-filter: blur(10px); /* Для Safari */
+    z-index: 99;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.modal-content{
+    width: 87%;
+
+}
+
+.modal-block{
+    background-image: url("@/assets/images/modal-bg.svg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    padding: calc(var(--app-width)* 10.55 / 100) calc(var(--app-width)* 3.58 / 100) calc(var(--app-width)* 14.18 / 100) calc(var(--app-width)* 5.38 / 100)
+}
+
   .wrapper{
   width: 100%;
     height:100%;
@@ -82,7 +126,7 @@ if(!contentRef.value )return
     background-image: url("@/assets/images/modal-bg.svg");
     background-repeat: no-repeat;
     background-size: 100% 100%;
-    padding: calc(var(--app-width)* 11.28 / 100) calc(var(--app-width)* 0.58 / 100) calc(var(--app-width)* 7.28 / 100) calc(var(--app-width)* 6.38 / 100)
+    padding: calc(var(--app-width)* 11.28 / 100) calc(var(--app-width)* 0.58 / 100) calc(var(--app-width)* 7.28 / 100) calc(var(--app-width)* 4.38 / 100)
   }
 
   .btn-wrapper{

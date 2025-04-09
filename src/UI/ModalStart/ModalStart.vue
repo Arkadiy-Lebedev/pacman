@@ -28,7 +28,7 @@ if(!wrapRef.value && !contantRef.value)return
         <div ref="contantRef" class="modal-content">
             <div v-if="stage === 'stage-1'" class="modal-block">
                 <div class="img-block">
-                    <img src="@/assets/images/modal-start/1.svg" alt="" class="img">
+                    <img src="@/assets/images/modal-start/1.png" alt="" class="img">
                 </div>
                     <p class="modal-title">
                         «У меня нет опыта работы»
@@ -39,7 +39,7 @@ if(!wrapRef.value && !contantRef.value)return
             </div>
             <div v-if="stage === 'stage-2'" class="modal-block">
                 <div class="img-block">
-                    <img src="@/assets/images/modal-start/2.svg" alt="" class="img">
+                    <img src="@/assets/images/modal-start/2.png" alt="" class="img">
                 </div>
                     <p class="modal-title">
                         «Буду много тупить»
@@ -50,7 +50,7 @@ if(!wrapRef.value && !contantRef.value)return
             </div>
             <div v-if="stage === 'stage-3'" class="modal-block">
                 <div class="img-block">
-                    <img src="@/assets/images/modal-start/3.svg" alt="" class="img">
+                    <img src="@/assets/images/modal-start/3.png" alt="" class="img">
                 </div>
                     <p class="modal-title">
                         «Не успею учиться и работать»

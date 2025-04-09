@@ -9,7 +9,7 @@
     <div v-if="isScrenSever" class="">
       <Screensever page="finish" color="#EF3124"/>
     </div>
-    <div v-if="!gameStarted && endAnimate" class="">
+    <div v-if="!gameStarted && endAnimate && !finishGame" class="">
       <ModalStart @close="resetGame" stage="stage-3" />
     </div>
       <div v-if="finishGame" class="">
@@ -19,7 +19,7 @@
       <ModalRestart @close="resetGame" stage="stage-3" />
     </div>
 <div v-if="gameStarted && !gameOver">
-    <Panel :bonus1="bonus1" :bonus2="bonus2" :bonus3="bonus3" stage="stage2"/>
+    <Panel :bonus1="bonus1" :bonus2="bonus2" :bonus3="bonus3" stage="stage3"/>
 </div>
         <div ref="wrapperRef" class="wrapper-game">
           <img class="house" src="@/assets/images/pacmen/house3.png" alt="">
@@ -54,13 +54,13 @@
               </span>
   
                 <span v-if="cell === BONUS" class="bonus1-box">
-              <img class="bonus-img" src="@/assets/images/pacmen/level2/1.png" alt="">
+              <img class="bonus-img" src="@/assets/images/pacmen/level3/1.png" alt="">
               </span>
                    <span v-if="cell === BONUS2" class="bonus1-box">
-              <img class="bonus-img" src="@/assets/images/pacmen/level2/2.png" alt="">
+              <img class="bonus-img" src="@/assets/images/pacmen/level3/2.png" alt="">
               </span>
              <span v-if="cell === BONUS3" class="bonus1-box">
-              <img class="bonus-img" src="@/assets/images/pacmen/level2/3.png" alt="">
+              <img class="bonus-img" src="@/assets/images/pacmen/level3/3.png" alt="">
               </span>
   
               <span 
@@ -139,7 +139,7 @@ const wrapperRef =ref<HTMLElement | null>(null)
 
     watch( score, (newScoreDot) => {    
       console.log(score.value)
-      if(score.value  >=89){
+      if(countDot.value + 6 == score.value){
         console.log(score.value)
         // alert('Вы победили!')
         finishGame.value = true;
@@ -401,13 +401,14 @@ const wrapperRef =ref<HTMLElement | null>(null)
       // Респавн персонажей
       pacman.position = { x: 3, y: 3 };
       pacman.direction = { x: 0, y: 0 };
+      pacman.nextDirection= { x: 0, y: 0 }
       
-      // ghosts.value = [
-      // { position: { x: 13, y: 13 }, direction: { x: -1, y: 0 }, color: 'red', speed: 200, monster: monster1 },
-      // { position: { x: 3, y: 13 }, direction: { x: 1, y: 0 }, color: 'pink', speed: 200, monster: monster1 },
-      // { position: { x: 7, y: 8 }, direction: { x: 0, y: 1 }, color: 'cyan', speed: 200, monster: monster1 },
-      // { position: { x: 9, y: 6 }, direction: { x: 0, y: 1 }, color: 'green', speed: 200, monster: monster1 },
-      // ];
+      ghosts.value = [
+      { position: { x: 13, y: 13 }, direction: { x: -1, y: 0 }, color: 'red', speed: 200, monster: monster1 },
+      { position: { x: 3, y: 13 }, direction: { x: 1, y: 0 }, color: 'pink', speed: 200, monster: monster1 },
+      { position: { x: 7, y: 8 }, direction: { x: 0, y: 1 }, color: 'cyan', speed: 200, monster: monster1 },
+      { position: { x: 9, y: 6 }, direction: { x: 0, y: 1 }, color: 'green', speed: 200, monster: monster1 },
+      ];
     }
   };
   
@@ -439,16 +440,19 @@ const wrapperRef =ref<HTMLElement | null>(null)
           // score.value += 1;
           board.value[newY][newX] = EMPTY;
         } else if (board.value[newY][newX] === BONUS) {
+          score.value += 1;
         bonus1.value++
           board.value[newY][newX] = EMPTY;
           activateInvincibility();
         }
         else if (board.value[newY][newX] === BONUS2) {
+          score.value += 1;
         bonus2.value++
           board.value[newY][newX] = EMPTY;
           activateInvincibility();
         }
         else if (board.value[newY][newX] === BONUS3) {
+          score.value += 1;
         bonus3.value++
           board.value[newY][newX] = EMPTY;
           activateInvincibility();
@@ -574,12 +578,14 @@ const wrapperRef =ref<HTMLElement | null>(null)
   
   // Обработка начала касания
   const handleTouchStart = (e) => {
+
     touchStartX.value = e.touches[0].clientX;
     touchStartY.value = e.touches[0].clientY;
   };
   
   // Обработка окончания касания
   const handleTouchEnd = (e) => {
+ 
     touchEndX.value = e.changedTouches[0].clientX;
     touchEndY.value = e.changedTouches[0].clientY;
     handleSwipe();

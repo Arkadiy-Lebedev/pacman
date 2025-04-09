@@ -69,12 +69,14 @@ const toGo = ()=>{
   <img ref="fingerRef" src="@/assets/images/instruction/finger.svg" alt="" class="finger-img">
   <p class="text">
     Свайпай пальцем в сторону, куда собираешься бежать.
-  </p>
+  </p>  
 <div class="info-game-1">
 
 <Info1/>
 </div>
-
+  <p class="text">
+    Если играешь с компа — используй кнопки со стрелками.
+  </p>  
 <div class="info-arrow">
   <Arrows class="info-arrow-svg"/>
 </div> 
@@ -88,7 +90,7 @@ const toGo = ()=>{
 <div class="content" v-if="step == 'step-2' ">
 <div ref="contentRef" class="main">
   <p class="text">
-    Если страх догонит тебя — потеряешь одну жизнь и вернешься на место, <span class="--bold">откуда начал</span>. Собранные точки и бонусы сохранятся.
+    Если страх догонит тебя — потеряешь одну жизнь и вернешься на место, <span class="--bold">откуда начал</span>. Собранные точки и монетки сохранятся.
   </p>
 <div class="info-game-2">
 <Info2/>
@@ -202,8 +204,9 @@ const toGo = ()=>{
 
   .finger-img{
     position: absolute;
-    top: calc(var(--app-width) * 18 / 100);
-    right: calc(var(--app-width) * 5 / 100);
+    top: calc(var(--app-width) * 21 / 100);
+    right: calc(var(--app-width) * 4 / 100);
     width: calc(var(--app-width) * 17 / 100);
+    z-index: 900;
   }
   </style>

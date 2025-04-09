@@ -1,6 +1,7 @@
 
 <script setup lang="ts">
 import Header from '@/components/Header.vue';
+import Info0 from '@/components/Info0.vue';
 import ButtonAlfa from '@/UI/Button/ButtonAlfa.vue';
 import { gsap } from 'gsap'
 import { ref,onMounted } from 'vue'
@@ -26,11 +27,11 @@ if(!contentRef.value )return
 
 <div ref="contentRef" class="main">
 
-  <p class="text">
+  <p class="text ">
     Ты столкнёшься лицом к лицу с главными <span class="--bold">страхами:</span> чтобы победить их, пройди по всем точкам в лабиринте.
   </p>
-  <img src="@/assets/images/instruction/1.svg" alt="" class="instruction-img">
- 
+  <!-- <img src="@/assets/images/instruction/1.svg" alt="" class="instruction-img"> -->
+ <Info0/>
 </div>
 <div ref="btnRef" class="btn-wrapper">
   <ButtonAlfa @click=" router.push({ name: 'info' })" text="Дальше"/>
@@ -43,6 +44,10 @@ if(!contentRef.value )return
   
    
     <style scoped>
+.text{
+  margin-bottom: calc(var(--app-width)* 11 / 100);
+}
+
   .wrapper{
   width: 100%;
     height:100%;
@@ -74,7 +79,7 @@ if(!contentRef.value )return
     background-size: 100% 100%;
     padding: calc(var(--app-width)* 7.75 / 100) calc(var(--app-width)* 5.28 / 100) calc(var(--app-width)* 0 / 100) calc(var(--app-width)* 5.28  / 100);
     height: calc(var(--app-width)* 122.7/ 100);
-
+overflow: hidden;
   }
 
   .btn-wrapper{

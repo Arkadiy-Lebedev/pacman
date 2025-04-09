@@ -1,12 +1,15 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import s1 from '@/assets/images/panel/s1.svg';
-import s2 from '@/assets/images/panel/s2.svg';
-import s3 from '@/assets/images/panel/s3.svg';
-import s21 from '@/assets/images/panel/s2-1.svg';
-import s22 from '@/assets/images/panel/s2-2.svg';
-import s23 from '@/assets/images/panel/s2-3.svg';
+import s1 from '@/assets/images/panel/s1.png';
+import s2 from '@/assets/images/panel/s2.png';
+import s3 from '@/assets/images/panel/s3.png';
+import s21 from '@/assets/images/panel/s2-1.png';
+import s22 from '@/assets/images/panel/s2-2.png';
+import s23 from '@/assets/images/panel/s2-3.png';
+import s31 from '@/assets/images/panel/s3-1.png';
+import s32 from '@/assets/images/panel/s3-2.png';
+import s33 from '@/assets/images/panel/s3-3.png';
 
 const images = {
   stage1:{
@@ -20,9 +23,9 @@ const images = {
      i3: s23,
   },
   stage3:{
-    i1:s21,
-     i2: s22,
-     i3: s23,
+    i1:s31,
+     i2: s32,
+     i3: s33,
   }
 
 }
