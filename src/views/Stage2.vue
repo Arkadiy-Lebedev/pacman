@@ -7,7 +7,7 @@
       <livesPucman :count='lives' stage="stage2"/>
     </div>
     <div v-if="isScrenSever" class="">
-      <Screensever page="stage-2" color="#FE34C6"/>
+      <Screensever page="stage-3" color="#FE34C6"/>
     </div>
 
     <div v-if="!gameStarted && endAnimate && !finishGame" class="">

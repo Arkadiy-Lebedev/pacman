@@ -78,6 +78,11 @@ width: calc(var(--app-height)*26.6 / 100);;
 width: calc(var(--app-height)*34.4 / 100);;
 }
 
+
+.stage-3 .img{
+width: calc(var(--app-height)*21.4 / 100);;
+}
+
 .modal-wrapper {
     position: absolute;
     top: 0;

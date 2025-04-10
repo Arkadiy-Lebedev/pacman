@@ -73,10 +73,15 @@ if(!wrapRef.value && !contantRef.value)return
 
 <style scoped>
 .stage-1 .img{
-width: calc(var(--app-height)*28.6 / 100)
+width: calc(var(--app-height)*28.6 / 100);
+margin-bottom: calc(var(--app-height)*3.6 / 100);
 }
 
 .stage-2 .img{
+width: calc(var(--app-height)*31.2 / 100)
+}
+
+.stage-3 .img{
 width: calc(var(--app-height)*31.2 / 100)
 }
 

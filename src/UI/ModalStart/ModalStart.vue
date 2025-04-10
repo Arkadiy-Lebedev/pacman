@@ -70,7 +70,7 @@ if(!wrapRef.value && !contantRef.value)return
 <style scoped>
 
 .stage-1 .img{
-    width: calc(var(--app-width)*46.8 / 100);
+    width: calc(var(--app-width)*59.8 / 100);
 }
 
 .stage-2 .img{
