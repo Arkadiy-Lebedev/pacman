@@ -7,7 +7,7 @@
       <livesPucman :count='lives' stage="stage2"/>
     </div>
     <div v-if="isScrenSever" class="">
-      <Screensever page="stage-3" color="#FE34C6"/>
+      <Screensever page="stage-3" color="#E3E4E3"/>
     </div>
 
     <div v-if="!gameStarted && endAnimate && !finishGame" class="">
@@ -43,6 +43,7 @@
               :key="x" 
               class="cell"
               :class="[{
+                     'resp': x ==8 && y ==8,
                 'wall': cell === WALL,
                 'outer-wall': isOuterWall(x, y),
                 'dot': cell === DOT,
@@ -174,7 +175,7 @@ const wrapperRef =ref<HTMLElement | null>(null)
     // Привидения
     const ghosts = ref([
       { position: { x: 5, y: 4 }, direction: { x: -1, y: 0 }, color: 'red', speed: 200, monster: monster1 },
-      { position: { x: 6, y: 8 }, direction: { x: 1, y: 0 }, color: 'pink', speed: 200, monster: monster1 },
+      { position: { x: 8, y: 8 }, direction: { x: 1, y: 0 }, color: 'pink', speed: 200, monster: monster1 },
       { position: { x:10, y: 3 }, direction: { x: 0, y: 1 }, color: 'cyan', speed: 200, monster: monster1 },
       { position: { x: 1, y: 10 }, direction: { x: 0, y: 1 }, color: 'green', speed: 200, monster: monster1 },
     ]);
@@ -317,7 +318,7 @@ const wrapperRef =ref<HTMLElement | null>(null)
       timer = setTimeout(() => {
         isInvincible.value = false;
         ghostSpeedMultiplier.value = 1;
-      }, 8000); // 8 секунд
+      }, 13000); // 8 секунд
     };
     
     // Сброс игры
@@ -329,6 +330,10 @@ const wrapperRef =ref<HTMLElement | null>(null)
       gameStarted.value = true;
       isInvincible.value = false;
       ghostSpeedMultiplier.value = 1;
+
+      bonus1.value = 0;
+      bonus2.value = 0;
+      bonus3.value = 0;
       
       pacman.position = { x: 3, y: 1 };
       pacman.direction = { x: 3, y: 0 };
@@ -336,7 +341,7 @@ const wrapperRef =ref<HTMLElement | null>(null)
       
       ghosts.value = [
       { position: { x: 5, y: 4 }, direction: { x: -1, y: 0 }, color: 'red', speed: 200, monster: monster1 },
-      { position: { x: 6, y: 8 }, direction: { x: 1, y: 0 }, color: 'pink', speed: 200, monster: monster1 },
+      { position: { x: 8, y: 8 }, direction: { x: 1, y: 0 }, color: 'pink', speed: 200, monster: monster1 },
       { position: { x:10, y: 3 }, direction: { x: 0, y: 1 }, color: 'cyan', speed: 200, monster: monster1 },
       { position: { x: 1, y: 10 }, direction: { x: 0, y: 1 }, color: 'green', speed: 200, monster: monster1 },
   ];
@@ -410,7 +415,7 @@ const wrapperRef =ref<HTMLElement | null>(null)
     
       ghosts.value = [
       { position: { x: 5, y: 4 }, direction: { x: -1, y: 0 }, color: 'red', speed: 200, monster: monster1 },
-      { position: { x: 6, y: 8 }, direction: { x: 1, y: 0 }, color: 'pink', speed: 200, monster: monster1 },
+      { position: { x: 8, y: 8 }, direction: { x: 1, y: 0 }, color: 'pink', speed: 200, monster: monster1 },
       { position: { x:10, y: 3 }, direction: { x: 0, y: 1 }, color: 'cyan', speed: 200, monster: monster1 },
       { position: { x: 1, y: 10 }, direction: { x: 0, y: 1 }, color: 'green', speed: 200, monster: monster1 },
       ];
@@ -845,4 +850,7 @@ const wrapperRef =ref<HTMLElement | null>(null)
         width: 0;
         height: 0;
       }
+      .resp{
+      background: #4CAF50;
+    }
       </style>

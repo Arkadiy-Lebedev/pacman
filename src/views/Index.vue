@@ -24,7 +24,7 @@ if(!contentRef.value )return
 
 </script>
 
-<template>
+<template> 
   <div class="wrapper">
     <div v-if="isModal" class="wrapper-modal">
       <div class="modal-content">
