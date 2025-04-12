@@ -412,13 +412,20 @@ const wrapperRef =ref<HTMLElement | null>(null)
       pacman.direction = { x: 0, y: 0 };
       pacman.nextDirection= { x: 0, y: 0 }
 
-    
-      ghosts.value = [
+          const monsters =   [
       { position: { x: 5, y: 4 }, direction: { x: -1, y: 0 }, color: 'red', speed: 200, monster: monster1 },
       { position: { x: 8, y: 8 }, direction: { x: 1, y: 0 }, color: 'pink', speed: 200, monster: monster1 },
       { position: { x:10, y: 3 }, direction: { x: 0, y: 1 }, color: 'cyan', speed: 200, monster: monster1 },
       { position: { x: 1, y: 10 }, direction: { x: 0, y: 1 }, color: 'green', speed: 200, monster: monster1 },
       ];
+console.log(ghosts.value)
+      if(ghosts.value.length == 4){
+              ghosts.value = monsters;
+      } else {
+        ghosts.value = monsters.slice(0, ghosts.value.length);
+      }
+
+      
     }
   };
   
