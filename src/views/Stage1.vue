@@ -13,7 +13,7 @@
       <ModalStart @close="resetGame" stage="stage-3" />
     </div>
       <div v-if="finishGame" class="">
-      <ModalEnd @close="goNext" stage="stage-3" />
+      <ModalEnd @close="goNext" stage="stage-1" />
     </div>
     <div v-if="gameOver && !finishGame" class="">
       <ModalRestart @close="resetGame" stage="stage-3" />

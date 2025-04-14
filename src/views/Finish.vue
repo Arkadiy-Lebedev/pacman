@@ -53,7 +53,7 @@ if(!contentRef.value )return
 
 <div ref="contentRef" class="main">
   <p class="title">
-    Эмэйзинг
+    Эмэйзинг!
     </p>
   <p class="text">
     Никакие страхи не помешают твоей работе в Альфа-Банке.

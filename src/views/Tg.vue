@@ -37,7 +37,7 @@ if(!contentRef.value )return
   </p>
 </div>
 <div ref="btnRef" class="btn-wrapper">
-  <a href="https://t.me/alfastudents">
+  <a href="https://fut.ru/s/alfastudents_2025">
       <ButtonAlfa text="Вступить"/>
   </a>
 
