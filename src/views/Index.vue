@@ -5,6 +5,9 @@ import ButtonAlfa from '@/UI/Button/ButtonAlfa.vue';
 import { gsap } from 'gsap'
 import { ref,onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { useYandexMetrika } from 'yandex-metrika-vue3'
+
+const yandexMetrika = useYandexMetrika()
 const router = useRouter()
 
 const contentRef = ref<HTMLElement | null>(null)
@@ -21,7 +24,10 @@ if(!contentRef.value )return
 
 })
 
-
+const next = () => {
+  yandexMetrika.reachGoal('start_game')
+  isModal.value = true
+}
 </script>
 
 <template> 
@@ -54,7 +60,7 @@ if(!contentRef.value )return
   </p>
 </div>
 <div ref="btnRef" class="btn-wrapper">
-  <ButtonAlfa @click=" isModal=true" text="Дальше"/>
+  <ButtonAlfa @click="next" text="Дальше"/>
 </div>
 
     </div>

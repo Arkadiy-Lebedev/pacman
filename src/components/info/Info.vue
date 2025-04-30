@@ -9,6 +9,9 @@ import { gsap } from 'gsap'
 import { useRouter } from 'vue-router'
 import { ref,onMounted } from 'vue';
 import {useHelperStore} from '@/stores/helper';
+import { useYandexMetrika } from 'yandex-metrika-vue3'
+
+const yandexMetrika = useYandexMetrika()
 
 const helperStore = useHelperStore()
 const router = useRouter()
@@ -52,6 +55,7 @@ tl.to(fingerRef.value, {
 const toGo = ()=>{
   console.log(666)
   if(!helperStore.isInstruction){
+    yandexMetrika.reachGoal('finish_training')
     router.push({ name: 'stage-1' })
     helperStore.isInstruction=true
   } else {

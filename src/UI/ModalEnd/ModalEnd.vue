@@ -34,7 +34,7 @@ if(!wrapRef.value && !contantRef.value)return
                         Опыт не появится, если бояться
                     </p>
                     <p class="text">
-                        В Альфе восхищаются теми, кто горит прокачкой скиллов — это можно сделать <span class="--bold">на стажировке <br/> «I Choose Alfa»</span> и на <span class="--bold">курсах Alfa Campus</span>. Рядом всегда будет опытный коллега.
+                        В Альфе восхищаются теми, кто горит прокачкой скиллов — это можно сделать <span class="--bold">на нашей<br/>стажировке</span> и на <span class="--bold">курсах Alfa Campus</span>. Рядом всегда будет опытный коллега.
                     </p>
             </div>
 

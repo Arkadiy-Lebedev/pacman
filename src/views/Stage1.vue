@@ -97,6 +97,9 @@
       import Screensever from '@/UI/Screensever.vue';
      import { gsap } from 'gsap'
      import {useHelperStore} from '@/stores/helper';
+     import { useYandexMetrika } from 'yandex-metrika-vue3'
+
+const yandexMetrika = useYandexMetrika()
      
      const helperStore = useHelperStore()
      const bonus1 = ref(0);
@@ -150,6 +153,7 @@ const wrapperRef =ref<HTMLElement | null>(null)
      })
 
     const goNext = () => {
+      yandexMetrika.reachGoal('finish_level_1')
       // finishGame.value = false
       isScrenSever.value = true
     }
@@ -316,8 +320,16 @@ const wrapperRef =ref<HTMLElement | null>(null)
       }, 13000); // 8 секунд
     };
     
+    const isFirstPlay = ref(false)
     // Сброс игры
     const resetGame = () => {    
+      if(isFirstPlay.value == false){
+        yandexMetrika.reachGoal('start_level_1')
+        isFirstPlay.value = true
+      } else{
+        yandexMetrika.reachGoal('lose_level_1')
+      }
+
     gameStarted.value = true;
       lives.value = 5;
       score.value = 0;

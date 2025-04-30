@@ -1,6 +1,7 @@
 
 <script setup lang="ts">
 import Header from '@/components/Header.vue';
+import { FTClient } from 'ft-client'
 import ButtonAlfa from '@/UI/Button/ButtonAlfa.vue';
 import { gsap } from 'gsap'
 import { ref,onMounted } from 'vue'
@@ -8,6 +9,11 @@ import InputEmail from '@/UI/InputEmail/InputEmail.vue';
 import CheckBoxGroup from '@/UI/CheckBoxGroup.vue';
 import CheckBoxGroup2 from '@/UI/CheckBoxGroup2.vue';
 import { useRouter } from 'vue-router'
+import { useYandexMetrika } from 'yandex-metrika-vue3'
+
+const yandexMetrika = useYandexMetrika()
+
+// const ftClients = new FTClient('https://games-admin.fut.ru/api/', 'ecomomania')
 const router = useRouter()
 
 const contentRef = ref<HTMLElement | null>(null)
@@ -16,23 +22,31 @@ const check2 =ref(false)
 const validate = ref(true)
 const email = ref<string | null>(null)
   const isPending = ref(false)
-const sendData = async () => {
 
+const sendData = async () => {
 validate.value = true
-if (!check1.value || !check2.value ) return
+if (!check1.value ) return
 const EMAIL_REGEXP =
   /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu
 
 if (!email.value || !EMAIL_REGEXP.test(email.value)) {
-
   validate.value = false
   return
 } else {
   validate.value = true
 }
 
+const formData: {email:string,subscription?:string } = {
+    email: email.value
+  }
+  if (check2.value){
+    formData.subscription = email.value
+  }
+
 isPending.value = true
-// const record = await ftClients.findRecord('email', email.value)
+// const newRecord = await ftClients.createRecord(formData)
+//   console.log(newRecord)
+yandexMetrika.reachGoal('mail')
 
 isPending.value = false
 router.push({name:'tg'})

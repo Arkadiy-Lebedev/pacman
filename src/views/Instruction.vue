@@ -6,6 +6,9 @@ import ButtonAlfa from '@/UI/Button/ButtonAlfa.vue';
 import { gsap } from 'gsap'
 import { ref,onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { useYandexMetrika } from 'yandex-metrika-vue3'
+
+const yandexMetrika = useYandexMetrika()
 const router = useRouter()
 
 const contentRef = ref<HTMLElement | null>(null)
@@ -18,6 +21,12 @@ if(!contentRef.value )return
     gsap.from(btnRef.value, { duration: 0.5, autoAlpha: 0, delay:0.5, ease: 'power1.out' })
 
 })
+
+const next = () => {
+  yandexMetrika.reachGoal('start_training')
+  router.push({ name: 'info' })
+}
+
 </script>
 
 <template>
@@ -34,7 +43,7 @@ if(!contentRef.value )return
  <Info0/>
 </div>
 <div ref="btnRef" class="btn-wrapper">
-  <ButtonAlfa @click=" router.push({ name: 'info' })" text="Дальше"/>
+  <ButtonAlfa @click="next" text="Дальше"/>
 </div>
 
     </div>

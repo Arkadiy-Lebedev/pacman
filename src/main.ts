@@ -12,7 +12,7 @@ const app = createApp(App)
 app.use(createPinia())
 app.use(router)
 app.use(initYandexMetrika, {
-  id: '98661162',
+  id: '100722011',
   router: router,
   env: 'production',
   scriptSrc: 'https://mc.yandex.ru/metrika/tag.js'
