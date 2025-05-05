@@ -13,7 +13,7 @@ import { useYandexMetrika } from 'yandex-metrika-vue3'
 
 const yandexMetrika = useYandexMetrika()
 
-// const ftClients = new FTClient('https://games-admin.fut.ru/api/', 'ecomomania')
+const ftClients = new FTClient('https://games-admin.fut.ru/api/', 'alfa-packman')
 const router = useRouter()
 
 const contentRef = ref<HTMLElement | null>(null)
@@ -44,8 +44,8 @@ const formData: {email:string,subscription?:string } = {
   }
 
 isPending.value = true
-// const newRecord = await ftClients.createRecord(formData)
-//   console.log(newRecord)
+const newRecord = await ftClients.createRecord(formData)
+  console.log(newRecord)
 yandexMetrika.reachGoal('mail')
 
 isPending.value = false
