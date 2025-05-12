@@ -63,13 +63,13 @@
               </span>
   
                 <span v-if="cell === BONUS" class="bonus1-box">
-              <img class="bonus-img" src="@/assets/images/pacmen/level1/bonus1.png" alt="">
+              <img class="bonus-img" src="@/assets/images/pacmen/level2/1.png" alt="">
               </span>
                    <span v-if="cell === BONUS2" class="bonus1-box">
-              <img class="bonus-img" src="@/assets/images/pacmen/level1/bonus2.png" alt="">
+              <img class="bonus-img" src="@/assets/images/pacmen/level2/2.png" alt="">
               </span>
              <span v-if="cell === BONUS3" class="bonus1-box">
-              <img class="bonus-img" src="@/assets/images/pacmen/level1/bonus3.png" alt="">
+              <img class="bonus-img" src="@/assets/images/pacmen/level2/3.png" alt="">
               </span>
   
               <span 
@@ -766,8 +766,8 @@ console.log(ghosts.value)
         .bonus-img{
     transform: rotate(-47deg) skewX(7deg);
         position: absolute;
-        width: calc(var(--app-width) * 4.8 / 100);;
-        left: calc(var(--app-width) * -1.1/ 100);;
+        width: calc(var(--app-width) * 5 / 100);;
+        left: calc(var(--app-width) * -0.1/ 100);;
         bottom: calc(var(--app-width) * -1.3 / 100);;
         z-index: 9;
         height: calc(var(--app-width) * 7.8 / 100);;

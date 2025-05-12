@@ -15,15 +15,14 @@ const total = 5
   <div v-for="live in total" :key="live" class="">
   
     <img v-if="live<=count" src="@/assets/images/live.svg" alt="" class="live-img">
-    <img v-else src="@/assets/images/live-dead.svg" alt="" class="live-img">
+    <img v-else src="@/assets/images/live-dead.svg" alt="" class="live-img black ">
   </div>
 </div>
 
 <div v-if="stage === 'stage2'" class="wrapper-lives">
-  <div v-for="live in total" :key="live" class="">
-  
+  <div v-for="live in total" :key="live" class="">  
     <img v-if="live<=count" src="@/assets/images/live-s2.svg" alt="" class="live-img">
-    <img v-else src="@/assets/images/live-dead-s2.svg" alt="" class="live-img">
+    <img v-else src="@/assets/images/live-dead-s2.svg" alt="" class="live-img black">
   </div>
 </div>
 
@@ -31,7 +30,7 @@ const total = 5
   <div v-for="live in total" :key="live" class="">
   
     <img v-if="live<=count" src="@/assets/images/live-s3.svg" alt="" class="live-img">
-    <img v-else src="@/assets/images/live-dead-s3.svg" alt="" class="live-img">
+    <img v-else src="@/assets/images/live-dead-s3.svg" alt="" class="live-img black bright">
   </div>
 </div>
 
@@ -41,10 +40,12 @@ const total = 5
 
   
   <style scoped>
+
   .wrapper-lives{
     display: flex;
     gap:calc(var(--app-width) * 1.8 / 100);
-    align-items:center
+    align-items:center;
+    justify-content: center;
 
   }
 
@@ -53,6 +54,15 @@ const total = 5
   }
   .info  .live-img{
     width: calc(var(--app-width) * 4.5 / 100);
+  }
+
+  .black{
+    filter: grayscale(1);
+
+  }
+
+  .bright{
+    filter: brightness(0.7);
   }
 
   </style>
